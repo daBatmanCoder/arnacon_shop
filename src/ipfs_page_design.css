@@ -1,0 +1,19 @@
+/* App.css */
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  .success-message {
+    animation: fadeInOut 5s ease-in-out;
+    position: fixed; /* Or absolute, depending on your layout */
+    top: 20%; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }

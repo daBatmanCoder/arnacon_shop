@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';       // Import the HomePage component
+import InputPage from './InputPage';
+import IPFSPage from './IPFSPage';
+import PaymentPage from './PaymentPage'; // Import the PaymentPage component
+import CreateShop from './CreateShop';   // Import the CreateShop component
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />              // New Route for HomePage
+        <Route path="/input" element={<InputPage />} />       // Updated Route for InputPage
+        <Route path="/shop" element={<IPFSPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/create-shop" element={<CreateShop />} /> // New Route for CreateShop
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
