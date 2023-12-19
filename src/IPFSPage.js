@@ -26,6 +26,7 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.error('Error fetching asdasdasdasdasdIPFS content:');
     // const ipfsUrl = localStorage.getItem('ipfsUrl');
     const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
     fetch(ipfsUrl)
