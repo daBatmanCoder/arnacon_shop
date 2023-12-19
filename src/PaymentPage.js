@@ -39,7 +39,7 @@ const PaymentPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId: userAddress,     // Assuming userAddress is the userId
+          userId: user_address,     // Assuming userAddress is the userId
           packageId: itemId,       // The item ID
           packageName: name,       // Name of the package
           price: price,            // Price of the item
