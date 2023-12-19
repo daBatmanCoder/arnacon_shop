@@ -6,9 +6,9 @@ import './input_page_design.css'; // Import the CSS file
 const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  let userAddress = "0xADaAf2160f7E8717FF67131E5AA00BfD73e377d5";
+  // let userAddress = "0xADaAf2160f7E8717FF67131E5AA00BfD73e377d5";
 
-  const { selectedItem, itemId } = location.state || {};
+  const { selectedItem, itemId, user_address } = location.state || {};
 
     // In PaymentPage component
   const handleReturn = () => {
@@ -26,7 +26,7 @@ const PaymentPage = () => {
 
   const sendToMollieWhatToBuy = async () => {
     console.log("sent");
-    console.log("userAddress is: " + userAddress);
+    console.log("userAddress is: " + user_address);
     console.log("item ID is: " + itemId);
     console.log("name of package: " + name);
     console.log( "price of : "+ price);

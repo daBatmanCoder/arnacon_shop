@@ -92,7 +92,7 @@ const IPFSPage = () => {
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
       console.log(userAddress);
-      navigate('/payment', { state: { selectedItem, itemId: selectedItemKey} });
+      navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, user_address: userAddress} });
     }
   };
   
