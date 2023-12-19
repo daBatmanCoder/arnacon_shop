@@ -12,6 +12,12 @@ let contract = new web3.eth.Contract(abi, contractAddress);
 const IPFSPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  let userAddress = queryParams.get('userAddress') || "0x0000000000000000000000000000000000000000";
+
+
+
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isTransactionInProgress, setTransactionInProgress] = useState(false);
   const [returnedFromPayment, setReturnedFromPayment] = useState(false);
@@ -86,6 +92,7 @@ const IPFSPage = () => {
   const handleButtonClick = () => {
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
+      print(userAddress)
       navigate('/payment', { state: { selectedItem, itemId: selectedItemKey} });
     }
   };
