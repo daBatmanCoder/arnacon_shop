@@ -22,7 +22,8 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const ipfsUrl = localStorage.getItem('ipfsUrl');
+    // const ipfsUrl = localStorage.getItem('ipfsUrl');
+    const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -141,7 +142,7 @@ const IPFSPage = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
     <div>
-        <button onClick={() => navigate('/input')}>Go Back</button>
+        {/* <button onClick={() => navigate('/input')}>Go Back</button> */}
       </div>
       {showSuccessMessage && <div className="success-message">Transaction Successful!</div>}
       <div style={{ textAlign: 'center' }}>

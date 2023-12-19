@@ -10,8 +10,9 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />              // New Route for HomePage
-        <Route path="/input" element={<InputPage />} />       // Updated Route for InputPage
+        <Route path="/" element={<IPFSPage />} />              // New Route for HomePage
+        {/* <Route path="/" element={<HomePage />} />              // New Route for HomePage */}
+        {/* <Route path="/input" element={<InputPage />} />       // Updated Route for InputPage */}
         <Route path="/shop" element={<IPFSPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/create-shop" element={<CreateShop />} /> // New Route for CreateShop
