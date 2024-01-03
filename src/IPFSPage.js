@@ -6,7 +6,7 @@ import './ipfs_page_design.css'; // Import the CSS file
 
 const abi = require('./shop_abi.json');
 const web3 = new Web3(new Web3.providers.HttpProvider("https://polygon-mumbai-bor.publicnode.com"));
-let contractAddress = '0x99b022C2961AD2F1313DC04Eb9E3ac74C29b51EB'; // Shop's contract address
+let contractAddress = '0x3DADa80ac28bf3e592b04Ca3288412642004937A'; // Shop's contract address
 let contract = new web3.eth.Contract(abi, contractAddress);
 
 const IPFSPage = () => {
@@ -14,7 +14,9 @@ const IPFSPage = () => {
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
-  let userAddress = queryParams.get('userAddress') || "0x0000000000000000000000000000000000000000";
+  let userAddress = queryParams.get('user_address') || "0x0000000000000000000000000000000000000000";
+  let public_key_rsa = queryParams.get('public_key_rsa');
+
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isTransactionInProgress, setTransactionInProgress] = useState(false);
@@ -27,8 +29,8 @@ const IPFSPage = () => {
 
   useEffect(() => {
     console.log('Error fetching asdasdasdasdasdIPFS content:');
-    // const ipfsUrl = localStorage.getItem('ipfsUrl');
-    const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
+    const ipfsUrl = localStorage.getItem('ipfsUrl');
+    // const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -92,7 +94,8 @@ const IPFSPage = () => {
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
       console.log(userAddress);
-      navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, user_address: userAddress} });
+      console.log(public_key_rsa);
+      navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, user_address: userAddress, public_key_rsa: public_key_rsa} });
     }
   };
   
