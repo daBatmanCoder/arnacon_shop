@@ -28,8 +28,8 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('Error fetching asdasdasdasdasdIPFS content:');
-    const ipfsUrl = localStorage.getItem('ipfsUrl');
+    //console.log('Error fetching asdasdasdasdasdIPFS content:');
+    //const ipfsUrl = localStorage.getItem('ipfsUrl');
     const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
     fetch(ipfsUrl)
       .then(response => response.text())
