@@ -16,7 +16,7 @@ const IPFSPage = () => {
   const queryParams = new URLSearchParams(location.search);
   let userAddress = queryParams.get('user_address') || "0x0000000000000000000000000000000000000000";
   let public_key_rsa = queryParams.get('public_key_rsa');
-
+  let provider = queryParams.get('provider');
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isTransactionInProgress, setTransactionInProgress] = useState(false);
@@ -28,9 +28,9 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('Error fetching asdasdasdasdasdIPFS content:');
-    const ipfsUrl = localStorage.getItem('ipfsUrl');
-    // const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
+    //console.log('Error fetching asdasdasdasdasdIPFS content:');
+    //const ipfsUrl = localStorage.getItem('ipfsUrl');
+    const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -95,8 +95,11 @@ const IPFSPage = () => {
       const selectedItem = data[selectedItemKey];
       console.log(userAddress);
       console.log(public_key_rsa);
-      navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, user_address: userAddress, public_key_rsa: public_key_rsa} });
-    }
+      navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, 
+                                      user_address: userAddress, 
+                                      public_key_rsa: public_key_rsa,
+                                      provider : provider} });
+                            }
   };
   
 
