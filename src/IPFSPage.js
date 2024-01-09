@@ -30,7 +30,7 @@ const IPFSPage = () => {
   useEffect(() => {
     //console.log('Error fetching asdasdasdasdasdIPFS content:');
     //const ipfsUrl = localStorage.getItem('ipfsUrl');
-    const ipfsUrl = "https://bafybeietdwndenb62h6zn7fmssnfojjzhemenhnbfagbkc3knum7haybvy.ipfs.w3s.link/7-items-store(a).txt";
+    const ipfsUrl = "https://bafybeicm5jcsoea2era2ca3dpvy2a3ioli3gzfi3v6qpdbhzqplbjswijq.ipfs.w3s.link/4-items-store.txt";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -95,6 +95,7 @@ const IPFSPage = () => {
       const selectedItem = data[selectedItemKey];
       console.log(userAddress);
       console.log(public_key_rsa);
+      console.log(provider);
       navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, 
                                       user_address: userAddress, 
                                       public_key_rsa: public_key_rsa,

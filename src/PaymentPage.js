@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './input_page_design.css'; // Import the CSS file
 
 
 const PaymentPage = () => {
+
+  
+
   const location = useLocation();
   const navigate = useNavigate();
-  // let userAddress = "0xADaAf2160f7E8717FF67131E5AA00BfD73e377d5";
+  const [checkoutUrl, setCheckoutUrl] = useState(null);
+
+  
 
   const { selectedItem, itemId, user_address, public_key_rsa, provider } = location.state || {};
 
@@ -15,16 +20,16 @@ const PaymentPage = () => {
     navigate('/shop', { state: { returnedFromPayment: true, selectedItem } });
   };
 
+  useEffect(() => {
+    sendToStripeWhatToBuy();
+  }, []);
+
 
   if (!selectedItem) {
     return <div>No item selected</div>;
   }
 
-  const PayForItem = () => {
-    sendToMollieWhatToBuy();
-  };
-
-  const sendToMollieWhatToBuy = async () => {
+  const sendToStripeWhatToBuy = async () => {
     console.log("sent");
     console.log("public key rsa is: " + public_key_rsa);
     console.log("store picked: "+ provider)
@@ -35,42 +40,51 @@ const PaymentPage = () => {
     console.log("currency is: " + currency);
 
     try {
-      const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_mollie', {
+      console.log(checkoutUrl);
+      const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           provider: provider,
-          public_rsa: public_key_rsa,
-          userId: user_address,     // Assuming userAddress is the userId
-          packageId: itemId,       // The item ID
-          packageName: name,       // Name of the package
-          price: price,            // Price of the item
-          currency: currency,      // Currency
+          public_key_rsa: public_key_rsa,
+          userId: user_address,     
+          packageId: itemId,       
+          packageName: name,       
+          transactionPrice: price,          
+          subscriptionPrice: price,
+          currency: currency      
         }),
       });
   
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+      
       const data = await response.json();
       // Handle the response data
-      console.log("Response from Mollie:", data);
+      console.log("Response from Stripe:", data);
 
 
       // Extract the checkout URL
-      const checkoutUrl = data['url']
+      const checkoutUrls = data['url'];
       console.log("Checkout URL:", checkoutUrl);
-      openUrl(checkoutUrl)
+      setCheckoutUrl(checkoutUrls);
+
+
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
   };
 
+
   const openUrl = (url) => {
     window.open(url, '_blank'); // '_blank' is used to open the URL in a new tab.
+  };
+
+  const open_stripe = () => {
+    openUrl(checkoutUrl);
   };
 
   const getCurrencySymbol = (currency) => {
@@ -116,7 +130,8 @@ const PaymentPage = () => {
       <div>Price: {currencySymbol}{price}</div>
       <div>Duration: {duration}</div>
       <p></p>
-      <button onClick={PayForItem}>Pay Now in Mollie</button>
+
+      <button disabled={!checkoutUrl} onClick={open_stripe}>Pay Now in Stripe</button>
       <button onClick={handleReturn} style={{ marginTop:'30px'}}>Return Back</button>
     </div>
   );
