@@ -30,7 +30,7 @@ const IPFSPage = () => {
   useEffect(() => {
     //console.log('Error fetching asdasdasdasdasdIPFS content:');
     //const ipfsUrl = localStorage.getItem('ipfsUrl');
-    const ipfsUrl = "https://bafybeicm5jcsoea2era2ca3dpvy2a3ioli3gzfi3v6qpdbhzqplbjswijq.ipfs.w3s.link/4-items-store.txt";
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmPMG2UuxfWr5ME8GTVAYA6siXifeE14yByqwuyF298k5o?_gl=1*vb5ri2*_ga*MTI2NzcwMjU4Ny4xNzA0ODAwNjc5*_ga_5RMPXG14TE*MTcwNDgwMDY3OS4xLjEuMTcwNDgwMDgzOS42MC4wLjA";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
