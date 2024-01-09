@@ -30,7 +30,11 @@ const IPFSPage = () => {
   useEffect(() => {
     //console.log('Error fetching asdasdasdasdasdIPFS content:');
     //const ipfsUrl = localStorage.getItem('ipfsUrl');
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmPMG2UuxfWr5ME8GTVAYA6siXifeE14yByqwuyF298k5o?_gl=1*vb5ri2*_ga*MTI2NzcwMjU4Ny4xNzA0ODAwNjc5*_ga_5RMPXG14TE*MTcwNDgwMDY3OS4xLjEuMTcwNDgwMDgzOS42MC4wLjA";
+
+    // 7 Items shop
+    //const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmPMG2UuxfWr5ME8GTVAYA6siXifeE14yByqwuyF298k5o?_gl=1*1pir2qy*_ga*MTI2NzcwMjU4Ny4xNzA0ODAwNjc5*_ga_5RMPXG14TE*MTcwNDgwMDY3OS4xLjEuMTcwNDgwMDg2MS4zOC4wLjA";
+    // 4 Items shop
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmWAtHHsZjWSGjgYcJujP9ZZLJnZgJJXjr24gvcgaaZjap?_gl=1*czrk5x*_ga*MTI2NzcwMjU4Ny4xNzA0ODAwNjc5*_ga_5RMPXG14TE*MTcwNDgwMDY3OS4xLjEuMTcwNDgwMTI0Ni42MC4wLjA";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
