@@ -1,0 +1,32 @@
+{
+    "1": {
+        "description": "first Item to presenet",
+        "image": "https://imgur.com/e0JPFxK.png",
+        "name": "100 Mins",
+        "attributes": [
+            {"trait_type": "Price", "value": "9.99"},
+	    {"trait_type": "Currency", "value": "USD"},
+            {"display_type": "boost_number", "trait_type": "Duration", "value": 60}
+        ]
+    },
+    "2": {
+        "description": "second Item to presenet and show and test for that purposes",
+        "image": "https://imgur.com/xlD9dJY.png",
+        "name": "200 Mins",
+        "attributes": [
+            {"trait_type": "Price", "value": "19.99"},
+	    {"trait_type": "Currency", "value": "EUR"},
+            {"display_type": "boost_number", "trait_type": "Duration", "value": 30}
+        ]
+    },
+    "3": {
+        "description": "third Item to presenet and show and test for that purposes to check that everything will be presented like it should",
+        "image": "https://imgur.com/ZLdHd9i.png",
+        "name": "500 Mins",
+        "attributes": [
+            {"trait_type": "Price", "value": "29.99"},
+	    {"trait_type": "Currency", "value": "EUR"},
+            {"display_type": "boost_number", "trait_type": "Duration", "value": 30}
+        ]
+    }
+}
