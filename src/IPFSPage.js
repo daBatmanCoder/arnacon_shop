@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate  } from 'react-router-dom';
-import Web3 from 'web3';
 import './ipfs_page_design.css'; // Import the CSS file
 
 
-const abi = require('./shop_abi.json');
-const web3 = new Web3(new Web3.providers.HttpProvider("https://polygon-mumbai-bor.publicnode.com"));
-let contractAddress = '0x3DADa80ac28bf3e592b04Ca3288412642004937A'; // Shop's contract address
-let contract = new web3.eth.Contract(abi, contractAddress);
 
 const IPFSPage = () => {
   const navigate = useNavigate();
@@ -15,16 +10,10 @@ const IPFSPage = () => {
 
   const queryParams = new URLSearchParams(location.search);
   let userAddress = queryParams.get('user_address') || "0x0000000000000000000000000000000000000000";
-  let public_key_rsa = queryParams.get('public_key_rsa');
   let provider = queryParams.get('provider');
-
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [isTransactionInProgress, setTransactionInProgress] = useState(false);
-  const [returnedFromPayment, setReturnedFromPayment] = useState(false);
 
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
-  const [details, setDetails] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -34,7 +23,8 @@ const IPFSPage = () => {
     // 7 Items shop
     //const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmPMG2UuxfWr5ME8GTVAYA6siXifeE14yByqwuyF298k5o?_gl=1*1pir2qy*_ga*MTI2NzcwMjU4Ny4xNzA0ODAwNjc5*_ga_5RMPXG14TE*MTcwNDgwMDY3OS4xLjEuMTcwNDgwMDg2MS4zOC4wLjA";
     // 4 Items shop
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmWAtHHsZjWSGjgYcJujP9ZZLJnZgJJXjr24gvcgaaZjap?_gl=1*czrk5x*_ga*MTI2NzcwMjU4Ny4xNzA0ODAwNjc5*_ga_5RMPXG14TE*MTcwNDgwMDY3OS4xLjEuMTcwNDgwMTI0Ni42MC4wLjA";
+    // https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmP8DwZv1actfYthxwcdTSVYvQMF8cxBht275uCafsy2oB
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmP8DwZv1actfYthxwcdTSVYvQMF8cxBht275uCafsy2oB";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -58,51 +48,13 @@ const IPFSPage = () => {
     setSelectedItemKey(key);
   };
 
-  const mintNFT = async (tokenURI) => {
-    try {
-      setTransactionInProgress(true); // Transaction starts
-      const private_key = "1cf3bacf75f3c8580aabf395ddb3eb5bf2943ce44cc9907a60802a305c3f4e09";
-      const public_key = "0xADaAf2160f7E8717FF67131E5AA00BfD73e377d5";
-      const nonce = await web3.eth.getTransactionCount(public_key, 'latest'); // get latest nonce
-      const checksumAddress = web3.utils.toChecksumAddress(public_key);
-      const gasPrice = await web3.eth.getGasPrice();
-
-      // Prepare the transaction details
-      const tx = {
-        'from': public_key,
-        'to': contractAddress,
-        'nonce': nonce,
-        'gasPrice': gasPrice,
-        'gas': 2000000, // Set the gas limit
-        'data': contract.methods.safeMint(checksumAddress,tokenURI).encodeABI()
-      };
-
-      // Sign the transaction
-      const signedTx = await web3.eth.accounts.signTransaction(tx, private_key);
-
-      // Send the transaction
-      const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-      console.log('Transaction receipt:', receipt);
-      setTransactionInProgress(false); // Transaction ends
-      setShowSuccessMessage(true); // Show success message
-      setTimeout(() => setShowSuccessMessage(false), 5000); // Hide after 5 seconds
-    }
-    catch (e){
-      console.log(e);
-      setTransactionInProgress(false); // Transaction ends (in case of error)
-    }
-  };
-
-
   const handleButtonClick = () => {
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
       console.log(userAddress);
-      console.log(public_key_rsa);
       console.log(provider);
       navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, 
                                       user_address: userAddress, 
-                                      public_key_rsa: public_key_rsa,
                                       provider : provider} });
                             }
   };
@@ -112,9 +64,6 @@ const IPFSPage = () => {
     if (location.state?.returnedFromPayment && location.state?.selectedItem) {
       const returnedItem = location.state.selectedItem;
       
-      // buy the NFT here:
-      // mintNFT(JSON.stringify(returnedItem));
-
       // Optionally reset the state in location to avoid repeated triggering
       location.state.returnedFromPayment = false;
     }
@@ -158,17 +107,11 @@ const IPFSPage = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
-    <div>
-        {/* <button onClick={() => navigate('/input')}>Go Back</button> */}
-      </div>
-      {showSuccessMessage && <div className="success-message">Transaction Successful!</div>}
       <div style={{ textAlign: 'center' }}>
         <h1>Cellact Store</h1>
       </div>
       <div style={{ textAlign: 'center' }}>
-        <button onClick={handleButtonClick} disabled={isTransactionInProgress}>
-          {isTransactionInProgress ? 'Buying...' : 'Buy Package'}
-        </button>
+        <button onClick={handleButtonClick}>Buy Package</button>
       </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           {Object.entries(data).map(([key, item]) => {

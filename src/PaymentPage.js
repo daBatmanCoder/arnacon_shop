@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './input_page_design.css'; // Import the CSS file
 
 
 const PaymentPage = () => {
 
-  
-
   const location = useLocation();
   const navigate = useNavigate();
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
-  
-
-  const { selectedItem, itemId, user_address, public_key_rsa, provider } = location.state || {};
+  const { selectedItem, itemId, user_address, provider } = location.state || {};
 
     // In PaymentPage component
   const handleReturn = () => {
     navigate('/shop', { state: { returnedFromPayment: true, selectedItem } });
   };
 
-  useEffect(() => {
-    sendToStripeWhatToBuy();
-  }, []);
+  const calledOnce = useRef(false);
 
+  useEffect(() => {
+    if (!calledOnce.current) {
+      sendToStripeWhatToBuy();
+      calledOnce.current = true;
+    }
+  }, []);
 
   if (!selectedItem) {
     return <div>No item selected</div>;
@@ -31,16 +31,16 @@ const PaymentPage = () => {
 
   const sendToStripeWhatToBuy = async () => {
     console.log("sent");
-    console.log("public key rsa is: " + public_key_rsa);
     console.log("store picked: "+ provider)
     console.log("userAddress is: " + user_address);
     console.log("item ID is: " + itemId);
     console.log("name of package: " + name);
-    console.log( "price of : "+ price);
+    console.log( "Transaction price of : " + transaction_price);
+    console.log( "Subscription price of : " + subscription_price);
     console.log("currency is: " + currency);
 
     try {
-      console.log(checkoutUrl);
+      console.log("sending stripe");
       const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
         method: 'POST',
         headers: {
@@ -48,12 +48,11 @@ const PaymentPage = () => {
         },
         body: JSON.stringify({
           provider: provider,
-          public_key_rsa: public_key_rsa,
           userId: user_address,     
           packageId: itemId,       
           packageName: name,       
-          transactionPrice: price,          
-          subscriptionPrice: price,
+          transactionPrice: transaction_price,          
+          subscriptionPrice: subscription_price,
           currency: currency      
         }),
       });
@@ -99,27 +98,30 @@ const PaymentPage = () => {
   };
 
   const getPriceCurrencyAndDuration = (attributes) => {
-    let price = '';
+    let transaction_price = '';
+    let subscription_price = '';
     let currencySymbol = '';
     let duration = '';
   
     attributes.forEach(attr => {
       if (attr.trait_type === 'Price') {
-        price = attr.value;
+        subscription_price = attr.value;
       } else if (attr.trait_type === 'Currency') {
         currencySymbol = getCurrencySymbol(attr.value);
         currency = attr.value;
       } else if (attr.trait_type === 'Duration') {
         duration = attr.value + ' days'; // Append 'days' to the duration value
+      } else if (attr.trait_type === 'InitP') {
+        transaction_price = attr.value;
       }
     });
   
-    return { price, currencySymbol, duration };
+    return { subscription_price,transaction_price, currencySymbol, duration };
   };
 
   let currency;
   let { image, name, description, attributes } = selectedItem;
-  let { price, currencySymbol, duration } = getPriceCurrencyAndDuration(attributes);
+  let { subscription_price,transaction_price,  currencySymbol, duration } = getPriceCurrencyAndDuration(attributes);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
@@ -127,7 +129,7 @@ const PaymentPage = () => {
       <img src={image} alt={name} style={{ width: '200px', height: '200px', objectFit: 'cover', marginBottom: '10px' }} />
       <div>{name}</div>
       <div>{description}</div>
-      <div>Price: {currencySymbol}{price}</div>
+      <div>Price: {currencySymbol}{subscription_price}</div>
       <div>Duration: {duration}</div>
       <p></p>
 
