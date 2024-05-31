@@ -17,12 +17,11 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmP8DwZv1actfYthxwcdTSVYvQMF8cxBht275uCafsy2oB";
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmPMG2UuxfWr5ME8GTVAYA6siXifeE14yByqwuyF298k5o";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
         try {
-          // eslint-disable-next-line no-eval
           const dictData = eval('(' + text + ')');
           setData(dictData);
           Object.entries(dictData).forEach(([key, value]) => {
@@ -56,7 +55,7 @@ const IPFSPage = () => {
 
   useEffect(() => {
     if (location.state?.returnedFromPayment && location.state?.selectedItem) {
-      // const returnedItem = location.state.selectedItem;
+      const returnedItem = location.state.selectedItem;
       
       // Optionally reset the state in location to avoid repeated triggering
       location.state.returnedFromPayment = false;
@@ -104,24 +103,23 @@ const IPFSPage = () => {
       <div style={{ textAlign: 'center' }}>
         <h1>Cellact Store</h1>
       </div>
-      
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {Object.entries(data).map(([key, item]) => {
-          const { price, currencySymbol, duration } = getPriceCurrencyAndDuration(item.attributes);
-          return (
-            <div key={key} style={{ flex: '1', maxWidth: '200px', margin: '10px', textAlign: 'center', boxSizing: 'border-box', border: selectedItemKey === key ? '2px solid blue' : 'none' }}>
-              <img src={item.image} alt={item.name} style={{ width: '200px', height: '200px', objectFit: 'cover', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handlePhotoClick(key)} />
-              <div>{`${currencySymbol}${price}`}</div> {/* Price and currency symbol */}
-              <div>{duration}</div> {/* Duration */}
-              <h2>{item.name}</h2>
-              <p>{item.description}</p>
-            </div>
-          );
-        })}
-      </div>
       <div style={{ textAlign: 'center' }}>
         <button onClick={handleButtonClick}>Buy Package</button>
       </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {Object.entries(data).map(([key, item]) => {
+            const { price, currencySymbol, duration } = getPriceCurrencyAndDuration(item.attributes);
+            return (
+              <div key={key} style={{ flex: '1', maxWidth: '200px', margin: '10px', textAlign: 'center', boxSizing: 'border-box', border: selectedItemKey === key ? '2px solid blue' : 'none' }}>
+                <img src={item.image} alt={item.name} style={{ width: '200px', height: '200px', objectFit: 'cover', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handlePhotoClick(key)} />
+                <div>{`${currencySymbol}${price}`}</div> {/* Price and currency symbol */}
+                <div>{duration}</div> {/* Duration */}
+                <h2>{item.name}</h2>
+                <p>{item.description}</p>
+              </div>
+            );
+          })}
+        </div>
     </div>
   ); // return function
 };// function

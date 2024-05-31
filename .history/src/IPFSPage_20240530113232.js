@@ -17,12 +17,11 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmP8DwZv1actfYthxwcdTSVYvQMF8cxBht275uCafsy2oB";
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmWAtHHsZjWSGjgYcJujP9ZZLJnZgJJXjr24gvcgaaZjap";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
         try {
-          // eslint-disable-next-line no-eval
           const dictData = eval('(' + text + ')');
           setData(dictData);
           Object.entries(dictData).forEach(([key, value]) => {
@@ -56,7 +55,7 @@ const IPFSPage = () => {
 
   useEffect(() => {
     if (location.state?.returnedFromPayment && location.state?.selectedItem) {
-      // const returnedItem = location.state.selectedItem;
+      const returnedItem = location.state.selectedItem;
       
       // Optionally reset the state in location to avoid repeated triggering
       location.state.returnedFromPayment = false;
