@@ -8,16 +8,12 @@ const IPFSPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const queryParams = new URLSearchParams(location.search);
-  let userAddress = queryParams.get('user_address') || "0x0000000000000000000000000000000000000000";
-  let provider = queryParams.get('provider');
-
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmP8DwZv1actfYthxwcdTSVYvQMF8cxBht275uCafsy2oB";
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmQmxYCp3hQepPsJhprxxsiVFPgTdHzGkczeNQPh946TcW";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -45,12 +41,12 @@ const IPFSPage = () => {
   const handleButtonClick = () => {
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
-      console.log(userAddress);
-      console.log(provider);
-      navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, 
-                                      user_address: userAddress, 
-                                      provider : provider} });
-                            }
+      if (selectedItem.name === "email"){
+        alert("This package is not available for purchase, will be available soon!");
+      } else{
+        navigate('/payment', { state: { selectedItem, itemId: selectedItemKey} });
+      }
+    }
   };
   
 

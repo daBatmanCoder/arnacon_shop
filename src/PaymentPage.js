@@ -9,7 +9,7 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
-  const { selectedItem, itemId, user_address, provider } = location.state || {};
+  const { selectedItem, itemId } = location.state || {};
 
     // In PaymentPage component
   const handleReturn = () => {
@@ -31,47 +31,60 @@ const PaymentPage = () => {
 
   const sendToStripeWhatToBuy = async () => {
     console.log("sent");
-    console.log("store picked: "+ provider)
-    console.log("userAddress is: " + user_address);
     console.log("item ID is: " + itemId);
     console.log("name of package: " + name);
     console.log( "Transaction price of : " + transaction_price);
     console.log( "Subscription price of : " + subscription_price);
     console.log("currency is: " + currency);
+    var success_url;
 
     try {
       console.log("sending stripe");
-      const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          provider: provider,
-          userId: user_address,     
-          packageId: itemId,       
-          packageName: name,       
-          transactionPrice: transaction_price,          
-          subscriptionPrice: subscription_price,
-          currency: currency,
-          success_url: "https://www.youtube.com/watch?v=xvFZjo5PgG0",
-          failure_url:"https://www.youtube.com/watch?v=xvFZjo5PgG0"
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (name === "ENS"){
+        success_url = "https://ens-app-tan.vercel.app/"
+      }
+      else {
+        if (name === "GSM"){
+          success_url = "https://get-gsm.vercel.app/"
+        } else{
+          if (name === "CellENS"){
+            success_url = "https://buy-ens.vercel.app/"
+          } else{
+            success_url = "https://www.youtube.com/watch?v=xvFZjo5PgG0"
+          }
+        }
       }
       
-      const data = await response.json();
-      // Handle the response data
-      console.log("Response from Stripe:", data);
+      const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+      body: JSON.stringify({
+        packageId: itemId,       
+        packageName: name,       
+        transactionPrice: transaction_price,          
+        subscriptionPrice: subscription_price,
+        currency: currency,
+        success_url: success_url,
+        failure_url:"https://www.youtube.com/watch?v=xvFZjo5PgG0"
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    const data = await response.json();
+    // Handle the response data
+    console.log("Response from Stripe:", data);
 
 
-      // Extract the checkout URL
-      const checkoutUrls = data['url'];
-      console.log("Checkout URL:", checkoutUrl);
-      setCheckoutUrl(checkoutUrls);
+    // Extract the checkout URL
+    const checkoutUrls = data['url'];
+    console.log("Checkout URL:", checkoutUrl);
+    setCheckoutUrl(checkoutUrls);
 
 
     } catch (error) {
@@ -123,7 +136,7 @@ const PaymentPage = () => {
 
   let currency;
   let { image, name, description, attributes } = selectedItem;
-  let { subscription_price,transaction_price,  currencySymbol, duration } = getPriceCurrencyAndDuration(attributes);
+  let { subscription_price,transaction_price,  currencySymbol } = getPriceCurrencyAndDuration(attributes);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
@@ -132,7 +145,6 @@ const PaymentPage = () => {
       <div>{name}</div>
       <div>{description}</div>
       <div>Price: {currencySymbol}{subscription_price}</div>
-      <div>Duration: {duration}</div>
       <p></p>
 
       <button disabled={!checkoutUrl} onClick={open_stripe}>Pay Now in Stripe</button>
