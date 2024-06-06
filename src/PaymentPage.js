@@ -42,22 +42,6 @@ const PaymentPage = () => {
     console.log("currency is: " + success_url);
 
     try {
-      console.log("sending stripe");
-      if (name === "ENS"){
-        // success_url = "https://ens-app-tan.vercel.app/"
-      }
-      else {
-        if (name === "GSM"){
-          // success_url = "https://get-gsm.vercel.app/"
-        } else{
-          if (name === "CellENS"){
-            // success_url = "https://buy-ens.vercel.app/"
-          } else{
-            success_url = "https://www.youtube.com/watch?v=xvFZjo5PgG0"
-          }
-        }
-      }
-
       
       const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
       method: 'POST',
