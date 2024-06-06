@@ -39,19 +39,19 @@ const PaymentPage = () => {
     console.log( "Transaction price of : " + transaction_price);
     console.log( "Subscription price of : " + subscription_price);
     console.log("currency is: " + currency);
-    var success_url;
+    console.log("currency is: " + success_url);
 
     try {
       console.log("sending stripe");
       if (name === "ENS"){
-        success_url = "https://ens-app-tan.vercel.app/"
+        // success_url = "https://ens-app-tan.vercel.app/"
       }
       else {
         if (name === "GSM"){
-          success_url = "https://get-gsm.vercel.app/"
+          // success_url = "https://get-gsm.vercel.app/"
         } else{
           if (name === "CellENS"){
-            success_url = "https://buy-ens.vercel.app/"
+            // success_url = "https://buy-ens.vercel.app/"
           } else{
             success_url = "https://www.youtube.com/watch?v=xvFZjo5PgG0"
           }
@@ -124,6 +124,7 @@ const PaymentPage = () => {
     let subscription_price = '';
     let currencySymbol = '';
     let duration = '';
+    let success_url = '';
   
     attributes.forEach(attr => {
       if (attr.trait_type === 'Price') {
@@ -135,15 +136,17 @@ const PaymentPage = () => {
         duration = attr.value + ' days'; // Append 'days' to the duration value
       } else if (attr.trait_type === 'InitP') {
         transaction_price = attr.value;
+      }else if (attr.trait_type === 'url') {
+        success_url = attr.value;
       }
     });
   
-    return { subscription_price,transaction_price, currencySymbol, duration };
+    return { subscription_price,transaction_price, currencySymbol, duration, success_url };
   };
 
   let currency;
   let { image, name, description, attributes } = selectedItem;
-  let { subscription_price,transaction_price,  currencySymbol } = getPriceCurrencyAndDuration(attributes);
+  let { subscription_price,transaction_price,  currencySymbol, success_url } = getPriceCurrencyAndDuration(attributes);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
