@@ -7,6 +7,7 @@ const PaymentPage = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const [processing, setProcessing] = useState(false);  // State to manage the display of the processing message
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
   const { selectedItem, itemId } = location.state || {};
@@ -30,6 +31,8 @@ const PaymentPage = () => {
   }
 
   const sendToStripeWhatToBuy = async () => {
+    setProcessing(true);  // Show processing message
+
     console.log("sent");
     console.log("item ID is: " + itemId);
     console.log("name of package: " + name);
@@ -54,6 +57,7 @@ const PaymentPage = () => {
           }
         }
       }
+
       
       const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
       method: 'POST',
@@ -89,7 +93,10 @@ const PaymentPage = () => {
 
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
+    } finally {
+      setProcessing(false);  // Hide processing message
     }
+
   };
 
 
@@ -146,7 +153,9 @@ const PaymentPage = () => {
       <div>{description}</div>
       <div>Price: {currencySymbol}{subscription_price}</div>
       <p></p>
-
+      <div>
+        {processing && <div id='process'>Processing...</div>}
+      </div>
       <button disabled={!checkoutUrl} onClick={open_stripe}>Pay Now in Stripe</button>
       <button onClick={handleReturn} style={{ marginTop:'30px'}}>Return Back</button>
     </div>
