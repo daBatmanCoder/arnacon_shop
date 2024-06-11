@@ -38,6 +38,8 @@ const PaymentPage = () => {
     console.log("name of package: " + name);
     console.log( "Transaction price of : " + transaction_price);
     console.log( "Subscription price of : " + subscription_price);
+    console.log( "user_Address price of : " + userAddress);
+
     console.log("currency is: " + currency);
     console.log("currency is: " + success_url);
 
