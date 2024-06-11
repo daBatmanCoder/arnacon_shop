@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate  } from 'react-router-dom';
+import { useParams, useLocation, useNavigate  } from 'react-router-dom';
 import './ipfs_page_design.css'; // Import the CSS file
 
 
@@ -7,6 +7,9 @@ import './ipfs_page_design.css'; // Import the CSS file
 const IPFSPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const userAddress = searchParams.get('user_address');
+
 
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
@@ -44,7 +47,7 @@ const IPFSPage = () => {
       if (selectedItem.name === "email"){
         alert("This package is not available for purchase, will be available soon!");
       } else{
-        navigate('/payment', { state: { selectedItem, itemId: selectedItemKey} });
+        navigate('/payment', { state: { selectedItem, selectedItemKey, userAddress} });
       }
     }
   };

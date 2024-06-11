@@ -10,7 +10,7 @@ const PaymentPage = () => {
   const [processing, setProcessing] = useState(false);  // State to manage the display of the processing message
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
-  const { selectedItem, itemId } = location.state || {};
+  const { selectedItem, itemId, userAddress } = location.state || {};
 
     // In PaymentPage component
   const handleReturn = () => {
@@ -54,6 +54,7 @@ const PaymentPage = () => {
         packageName: name,       
         transactionPrice: transaction_price,          
         subscriptionPrice: subscription_price,
+        user_address: userAddress,
         currency: currency,
         success_url: success_url,
         failure_url:"https://www.youtube.com/watch?v=xvFZjo5PgG0"
