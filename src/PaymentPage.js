@@ -90,7 +90,8 @@ const PaymentPage = () => {
   };
 
   const open_stripe = () => {
-    openUrl(checkoutUrl);
+    window.location.href = checkoutUrl;
+    // openUrl(checkoutUrl);
   };
 
   const getCurrencySymbol = (currency) => {
