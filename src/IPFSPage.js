@@ -11,13 +11,12 @@ const IPFSPage = () => {
   const userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
 
 
-
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZ6Yq7mqUPdaqzdANhyZCLpFvwZch8zzo3Jmmhwku2d9t";
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmTKQEZ7zbbPoT9v1S1jFTboerJMWhB6P68gJUG6moTjH8";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
