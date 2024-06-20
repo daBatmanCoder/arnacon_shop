@@ -16,7 +16,7 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmTKQEZ7zbbPoT9v1S1jFTboerJMWhB6P68gJUG6moTjH8";
+    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmVBU2c1Fh6utEZCS4ZgDkrmo6TAmVUMChDjayRXsAyFcA";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
