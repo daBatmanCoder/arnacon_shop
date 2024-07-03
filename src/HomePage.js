@@ -8,8 +8,20 @@ const HomePage = () => {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>Welcome to the Shop Application</h1>
-      <button className="button-gap" onClick={() => navigate('/input')}>Build Store</button>
-      <button onClick={() => navigate('/create-shop')}>Create Shop</button>
+      <h2>Are you a service provider or a client?</h2>
+      <button 
+        className="button-gap" 
+        onClick={() => navigate('/shop', { state: { isClient: false } })}
+      >
+        Service provider
+      </button>
+      <button 
+        className="button-gap" 
+        onClick={() => navigate('/shop', { state: { isClient: true } })}
+      >
+        Client
+      </button>
+      {/* <button onClick={() => navigate('/create-shop')}>Create Shop</button> */}
     </div>
   );
 };

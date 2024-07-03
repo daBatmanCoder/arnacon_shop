@@ -7,6 +7,7 @@ import './ipfs_page_design.css'; // Import the CSS file
 const IPFSPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isClient } = location.state; // Access the state passed via navigate
   const [searchParams] = useSearchParams();
   const userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
 
@@ -16,7 +17,12 @@ const IPFSPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmchPnmwwMe48Z8ykPCtdpenQ8XTAnSqruDjGUCw4agLPe";
+    let ipfsUrl;
+    if(isClient){
+      ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmchPnmwwMe48Z8ykPCtdpenQ8XTAnSqruDjGUCw4agLPe";
+    } else{
+      ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ"
+    }
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -119,7 +125,7 @@ const IPFSPage = () => {
         })}
       </div>
       <div style={{ textAlign: 'center' }}>
-        <button onClick={handleButtonClick}>Buy Package</button>
+        <button  className="buttons" onClick={handleButtonClick}>Buy Package</button>
       </div>
     </div>
   ); // return function
