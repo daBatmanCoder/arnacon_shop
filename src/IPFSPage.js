@@ -9,7 +9,7 @@ const IPFSPage = () => {
   const location = useLocation();
   let { isClient, userAddress } = location.state; // Access the state passed via navigate
   const [searchParams] = useSearchParams();
-  userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
+  // userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
 
 
   const [data, setData] = useState({});
