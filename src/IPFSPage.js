@@ -18,6 +18,7 @@ const IPFSPage = () => {
 
   useEffect(() => {
     let ipfsUrl;
+    console.log("User Address is: " + userAddress);
     if(isClient){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmchPnmwwMe48Z8ykPCtdpenQ8XTAnSqruDjGUCw4agLPe";
     } else{
