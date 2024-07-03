@@ -2,3 +2,19 @@ body {
     background-color: #f0f0f0;
   }
   
+  .button-gap {
+    padding: 15px 30px; /* Increase padding to make the button larger */
+    font-size: 20px; /* Larger font size for better readability */
+    min-width: 200px; /* Minimum width to maintain size regardless of content */
+    cursor: pointer; /* Cursor indicates the element is clickable */
+    margin: 10px; /* Space between buttons */
+    background-color: #007BFF; /* A pleasant blue background */
+    color: white; /* White text color */
+    border: none; /* No border for a modern look */
+    border-radius: 5px; /* Slightly rounded corners for a softer look */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .button-gap:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover for better interaction feedback */
+  }

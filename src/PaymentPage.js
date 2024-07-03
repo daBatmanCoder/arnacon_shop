@@ -147,8 +147,8 @@ const PaymentPage = () => {
       <div>
         {processing && <div id='process'>Processing...</div>}
       </div>
-      <button disabled={!checkoutUrl} onClick={open_stripe}>Pay Now in Stripe</button>
-      <button onClick={handleReturn} style={{ marginTop:'30px'}}>Return Back</button>
+      <button disabled={!checkoutUrl} className="buttons"  onClick={open_stripe}>Pay Now in Stripe</button>
+      <button onClick={handleReturn} className="buttons"  style={{ marginTop:'30px'}}>Return Back</button>
     </div>
   );
 };
