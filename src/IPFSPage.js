@@ -7,9 +7,9 @@ import './ipfs_page_design.css'; // Import the CSS file
 const IPFSPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isClient } = location.state; // Access the state passed via navigate
+  let { isClient, userAddress } = location.state; // Access the state passed via navigate
   const [searchParams] = useSearchParams();
-  const userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
+  userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
 
 
   const [data, setData] = useState({});

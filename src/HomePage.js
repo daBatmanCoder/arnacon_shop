@@ -11,13 +11,13 @@ const HomePage = () => {
       <h2>Are you a service provider or a client?</h2>
       <button 
         className="button-gap" 
-        onClick={() => navigate('/shop', { state: { isClient: false } })}
+        onClick={() => navigate('/shop', { state: { isClient: false, userAddress } })}
       >
         Service provider
       </button>
       <button 
         className="button-gap" 
-        onClick={() => navigate('/shop', { state: { isClient: true } })}
+        onClick={() => navigate('/shop', { state: { isClient: true, userAddress } })}
       >
         Client
       </button>
