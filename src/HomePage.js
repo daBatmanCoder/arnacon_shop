@@ -1,9 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams  } from 'react-router-dom';
+
 import './styleHomePage.css'; // Import your CSS file
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
