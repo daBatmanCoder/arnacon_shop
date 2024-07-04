@@ -17,6 +17,7 @@ body {
 
 .buttons:disabled {
   background-color: #cddcec; /* Darker shade of blue on hover for better interaction feedback */
+  pointer-events: none; /* Disable pointer events to prevent hover effect */
 }
 
 .button-gap:hover {
