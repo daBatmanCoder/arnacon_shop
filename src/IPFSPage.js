@@ -7,9 +7,9 @@ import './ipfs_page_design.css'; // Import the CSS file
 const IPFSPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  let { isClient, userAddress } = location.state; // Access the state passed via navigate
+  // let { isClient, userAddress } = location.state; // Access the state passed via navigate
   const [searchParams] = useSearchParams();
-  // userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
+  let userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
 
 
   const [data, setData] = useState({});
@@ -19,11 +19,12 @@ const IPFSPage = () => {
   useEffect(() => {
     let ipfsUrl;
     console.log("User Address is: " + userAddress);
-    if(isClient){
-      ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmchPnmwwMe48Z8ykPCtdpenQ8XTAnSqruDjGUCw4agLPe";
-    } else{
-      ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ"
-    }
+    // if(isClient){
+    //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmchPnmwwMe48Z8ykPCtdpenQ8XTAnSqruDjGUCw4agLPe";
+    // } else{
+    //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ";
+    // }
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmShZ9mZHRge2qZKcrNh2t8xtJBjK3tmTP3JM1Vr4vwwmR";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
