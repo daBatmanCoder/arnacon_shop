@@ -20,15 +20,32 @@ const PaymentPage = () => {
   const calledOnce = useRef(false);
 
   useEffect(() => {
-    if (!calledOnce.current) {
-      sendToStripeWhatToBuy();
-      calledOnce.current = true;
+    if (name === "Free"){
+      console.log("Free package, no need to send to stripeasdadasd");
+      const data_to_send = { action: "ITEM", body: { item: "ANONYMOUS", sp : "ANONYMOUS" } }
+      communicateWithNative(data_to_send);
+    } else{
+      if (!calledOnce.current) {  
+        sendToStripeWhatToBuy();
+        calledOnce.current = true;
+      }
     }
+    
   }, []);
 
   if (!selectedItem) {
     return <div>No item selected</div>;
   }
+
+  const communicateWithNative = (dataToSend) => {
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.buttonPressed) {
+      window.webkit.messageHandlers.buttonPressed.postMessage(JSON.stringify(dataToSend));
+    } else if (window.AndroidBridge && window.AndroidBridge.processAction) {
+      window.AndroidBridge.processAction(JSON.stringify(dataToSend));
+    } else {
+      console.log("Native interface not available");
+    }
+  };
 
   const sendToStripeWhatToBuy = async () => {
     setProcessing(true);  // Show processing message
@@ -36,64 +53,65 @@ const PaymentPage = () => {
     console.log("sent");
     console.log("item ID is: " + itemId);
     console.log("name of package: " + name);
-    console.log( "Transaction price of : " + transaction_price);
-    console.log( "Subscription price of : " + subscription_price);
-    console.log( "user_Address is: " + userAddress);
-
+    console.log("Transaction price of : " + transaction_price);
+    console.log("Subscription price of : " + subscription_price);
+    console.log("user_Address is: " + userAddress);
     console.log("currency is: " + currency);
-    console.log("currency is: " + success_url);
+    console.log("Success URL is: " + success_url);
+    console.log("Failure URL is: " + failure_url);
 
-    try {
+
+      try {
       
-      const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+        const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        
+        body: JSON.stringify({
+          packageId: itemId,       
+          packageName: name,       
+          transactionPrice: transaction_price,          
+          subscriptionPrice: subscription_price,
+          user_address: userAddress,
+          currency: currency,
+          success_url: success_url,
+          failure_url:"https://www.youtube.com/watch?v=xvFZjo5PgG0"
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       
-      body: JSON.stringify({
-        packageId: itemId,       
-        packageName: name,       
-        transactionPrice: transaction_price,          
-        subscriptionPrice: subscription_price,
-        user_address: userAddress,
-        currency: currency,
-        success_url: success_url,
-        failure_url:"https://www.youtube.com/watch?v=xvFZjo5PgG0"
-      }),
-    });
+      const data = await response.json();
+      // Handle the response data
+      console.log("Response from Stripe:", data);
+  
+  
+      // Extract the checkout URL
+      const checkoutUrl = data['url'];
+      console.log("Checkout URL:", checkoutUrl);
+      setCheckoutUrl(checkoutUrl);
+  
+  
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      } finally {
+        setProcessing(false);  // Hide processing message
+      }
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    
-    const data = await response.json();
-    // Handle the response data
-    console.log("Response from Stripe:", data);
-
-
-    // Extract the checkout URL
-    const checkoutUrls = data['url'];
-    console.log("Checkout URL:", checkoutUrl);
-    setCheckoutUrl(checkoutUrls);
-
-
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-    } finally {
-      setProcessing(false);  // Hide processing message
-    }
-
-  };
-
-
-  const openUrl = (url) => {
-    window.open(url, '_blank'); // '_blank' is used to open the URL in a new tab.
   };
 
   const open_stripe = () => {
+    
+    if (name === "Free"){
+      setCheckoutUrl("https://www.youtube.com/watch?v=xvFZjo5PgG0");
+    } else{
     window.location.href = checkoutUrl;
-    // openUrl(checkoutUrl);
+    }
+
   };
 
   const getCurrencySymbol = (currency) => {
