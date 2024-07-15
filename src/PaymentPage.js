@@ -58,8 +58,6 @@ const PaymentPage = () => {
     console.log("user_Address is: " + userAddress);
     console.log("currency is: " + currency);
     console.log("Success URL is: " + success_url);
-    console.log("Failure URL is: " + failure_url);
-
 
       try {
       
