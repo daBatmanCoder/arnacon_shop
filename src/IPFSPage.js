@@ -108,30 +108,27 @@ const IPFSPage = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Cellact Store</h1>
-      </div>
-      
+      <h1>Cellact Store</h1>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {Object.entries(data).map(([key, item]) => {
           const { price, currencySymbol, duration } = getPriceCurrencyAndDuration(item.attributes);
           return (
             <div key={key} style={{ flex: '1', maxWidth: '200px', margin: '10px', textAlign: 'center', boxSizing: 'border-box', border: selectedItemKey === key ? '2px solid blue' : 'none' }}>
               <img src={item.image} alt={item.name} style={{ width: '200px', height: '200px', objectFit: 'cover', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handlePhotoClick(key)} />
-              <div>{`${currencySymbol}${price}`}</div> {/* Price and currency symbol */}
-              <div>{duration}</div> {/* Duration */}
+              <div>{`${currencySymbol}${price}`}</div>
+              <div>{duration}</div>
               <h2>{item.name}</h2>
               <p>{item.description}</p>
+              {selectedItemKey === key && (
+                <button className="buttons" style={{ margin: 'auto', display: 'block'}} onClick={() => handleButtonClick(key)}>Buy Package</button>
+              )}
             </div>
           );
         })}
       </div>
-      <div style={{ textAlign: 'center' }}>
-        <button  className="buttons" onClick={handleButtonClick}>Buy Package</button>
-      </div>
     </div>
-  ); // return function
-};// function
+  );
+};
 
 
 export default IPFSPage;
