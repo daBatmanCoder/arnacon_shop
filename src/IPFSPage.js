@@ -24,7 +24,7 @@ const IPFSPage = () => {
     // } else{
     //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ";
     // }
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmNiZfud5WeGBAhTTQygGiTPqj91qdN1tpXrzLrDWc5y15";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmQJR5drXqUzU88SVXFWrFJSwMiHB5MTWFCEhmuMXtXSMb";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
