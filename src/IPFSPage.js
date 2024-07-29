@@ -24,7 +24,7 @@ const IPFSPage = () => {
     // } else{
     //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ";
     // }
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmQJR5drXqUzU88SVXFWrFJSwMiHB5MTWFCEhmuMXtXSMb";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmbM5QCPnaUK63di1UCNSoK8F2DA9giuLuBqGm77KeNbuN";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -50,15 +50,19 @@ const IPFSPage = () => {
   };
 
   const handleButtonClick = () => {
+
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
-      if (selectedItem.name === "email"){
-        alert("This package is not available for purchase, will be available soon!");
+      if (selectedItem.name === "TELNYX"){
+
+        window.location.href = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
       } else{
         navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
       }
     }
   };
+
+
   
 
   useEffect(() => {
