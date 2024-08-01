@@ -53,7 +53,8 @@ const IPFSPage = () => {
     url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
-      if (selectedItem.name === "TELNYX"){
+      if (selectedItem.name === "WorldWide"){
+        console.log(selectedItem.attributes.url);
         window.location.href = url;
       } else{
         navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
