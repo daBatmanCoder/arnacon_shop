@@ -50,12 +50,11 @@ const IPFSPage = () => {
   };
 
   const handleButtonClick = () => {
-
+    url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
       if (selectedItem.name === "TELNYX"){
-
-        window.location.href = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
+        window.location.href = url;
       } else{
         navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
       }
