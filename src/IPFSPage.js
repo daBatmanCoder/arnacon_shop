@@ -50,7 +50,7 @@ const IPFSPage = () => {
   };
 
   const handleButtonClick = () => {
-    url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
+    const url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
       if (selectedItem.name === "WorldWide"){
