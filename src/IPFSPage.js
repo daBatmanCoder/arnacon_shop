@@ -58,8 +58,9 @@ const IPFSPage = () => {
         window.location.href = url;
       } else{
         if(selectedItem.name === "Redirect"){
-          url = 'https://redirect-back.vercel.app/'
-          window.location.href = url;
+          console.log(selectedItem.attributes.url);
+          const urls = 'https://redirect-back.vercel.app/'
+          window.location.href = urls;
 
         } else{
         navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
