@@ -10,7 +10,7 @@ const IPFSPage = () => {
   // let { isClient, userAddress } = location.state; // Access the state passed via navigate
   const [searchParams] = useSearchParams();
   let userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
-
+  let isEmail = searchParams.get('is_email');
 
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
@@ -25,6 +25,9 @@ const IPFSPage = () => {
     //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ";
     // }
     ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmbJqRZJhpd2dLwKRC5b6FkUya9vKuYP1uUK58xRy2yvVT";
+    if(isEmail){
+      ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
+    }
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
