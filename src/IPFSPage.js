@@ -24,7 +24,7 @@ const IPFSPage = () => {
     // } else{
     //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ";
     // }
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmdiZtMRm6xkovdCS7gW5DvAUnkLv1YGZiMA8f58aKH5Hg";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmTtzuFwE3acQKhMLP6nFuKqCQsj4zTu4DGXbyhR2zW8te";
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -61,7 +61,6 @@ const IPFSPage = () => {
           console.log(selectedItem.attributes.url);
           const urls = 'https://redirect-back.vercel.app/'
           window.location.href = urls;
-
         } else{
         navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
         }
