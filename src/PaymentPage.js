@@ -10,7 +10,8 @@ const PaymentPage = () => {
   const [processing, setProcessing] = useState(false);  // State to manage the display of the processing message
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
-  const { selectedItem, itemId, userAddress, uuidEmail } = location.state || {};
+  const { selectedItem, itemId, userAddress, uuidEmail, signedUUID} = location.state || {};
+
 
     // In PaymentPage component
   const handleReturn = () => {
@@ -58,8 +59,24 @@ const PaymentPage = () => {
     console.log("user_Address is: " + userAddress);
     console.log("currency is: " + currency);
     console.log("Success URL is: " + success_url);
-    console.log(" uuid email code:" + uuidEmail);
 
+    let body_to_send_server = {
+      packageId: itemId,       
+      packageName: name,       
+      transactionPrice: transaction_price,          
+      subscriptionPrice: subscription_price,
+      user_address: userAddress,
+      currency: currency,
+      success_url: success_url,
+      failure_url:"https://www.youtube.com/watch?v=xvFZjo5PgG0"
+    }
+
+    if (userAddress === "nope"){
+      console.log(" uuid email code:" + uuidEmail);
+      console.log(" signed uuid code:" + signedUUID);
+      body_to_send_server["uuidEmail"] = uuidEmail;
+      body_to_send_server["signedUUID"] = signedUUID;
+    }
 
       try {
       
@@ -68,17 +85,7 @@ const PaymentPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        
-        body: JSON.stringify({
-          packageId: itemId,       
-          packageName: name,       
-          transactionPrice: transaction_price,          
-          subscriptionPrice: subscription_price,
-          user_address: userAddress,
-          currency: currency,
-          success_url: success_url,
-          failure_url:"https://www.youtube.com/watch?v=xvFZjo5PgG0"
-        }),
+        body: JSON.stringify(body_to_send_server),
       });
   
       if (!response.ok) {

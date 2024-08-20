@@ -3,7 +3,8 @@ import { useLocation, useNavigate, useSearchParams  } from 'react-router-dom';
 import './ipfs_page_design.css'; // Import the CSS file
 import { useData } from './DataContext';
 
-
+let keyOfSelectedItem;
+let selectedItemGlobal;
 
 const IPFSPage = () => {
   const navigate = useNavigate();
@@ -17,19 +18,28 @@ const IPFSPage = () => {
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  let urlToMoveToEMAIL;
 
   useEffect(() => {
 
     let ipfsUrl;
     console.log("User Address is: " + userAddress);
     
+    const angularEMAILURL = "https://www.youtube.com/";
 
 
     const handleDataReceive = (event) => {
         const signedUUID = event.detail;
-        console.log("UUID Email: " + uuidEmail);
         console.log("Signed UUID: " + signedUUID);
-        // sendToCloud(signedUUID, uuidEmail); // Compressed signed
+
+        if(uuidEmail){
+          console.log("UUID Email: " + uuidEmail);
+          sendToCloudForEMAIL(signedUUID, uuidEmail); // Compressed signed
+        } else {
+          urlToMoveToEMAIL = angularEMAILURL + '?timestamp=' + timestampForEmail + '&signature=' + signedUUID;
+          console.log(urlToMoveToEMAIL);
+          window.location.href = urlToMoveToEMAIL;
+        }
     };
     
     document.addEventListener('onDataReceived', handleDataReceive);
@@ -39,7 +49,6 @@ const IPFSPage = () => {
     if(uuidEmail){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
       requestSign(uuidEmail);
-      // window.top.controller.receiveData("123");
     }
 
     fetch(ipfsUrl)
@@ -63,16 +72,36 @@ const IPFSPage = () => {
       return () => {
         document.removeEventListener('onDataReceived', handleDataReceive);
 
-
       };
+
   }, [location, updateData]);
 
+
   const handlePhotoClick = (key) => {
-    setSelectedItemKey(key);
+      setSelectedItemKey(key);
+      keyOfSelectedItem = key;
+      selectedItemGlobal = data[key];
   };
 
+  let timestampForEmail;
+
+  const sendToCloudForEMAIL = (signedUUID, uuidEmail) => {
+    console.log(keyOfSelectedItem);
+    const selectedItem = selectedItemGlobal;
+    console.log(selectedItem);
+
+    if (keyOfSelectedItem && selectedItem) {
+      navigate('/payment', { state: { selectedItem, itemId: keyOfSelectedItem, userAddress: "nope", uuidEmail, signedUUID} });
+    }
+  }
+
   const handleButtonClick = () => {
+
+    if(uuidEmail){
+      window.top.controller.receiveData("{\"action\":\"data-retrieved\",\"body\":{\"xsign\":\"pvifeOo4gQrDoxqwt/NlfGFICW4/seHOpcsvVcPX66F5OmL0HhBOxe7gRjazGwKYWee/7SyDYv8LUN6UKHGrrhs=\"}}")
+    } 
     const url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
+
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
       if (selectedItem.name === "WorldWide"){
@@ -84,13 +113,12 @@ const IPFSPage = () => {
           const urls = 'https://redirect-back.vercel.app/'
           window.location.href = urls;
         } else{
-          if(uuidEmail){
-            console.log("UUID Email: " + uuidEmail);
-            // requestSign(uuidEmail);
-
-            //navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, uuidEmail} });
+          if(selectedItem.name === "EMAIL"){
+            timestampForEmail = Date.now();
+            requestSign(timestampForEmail);
+          } else{
+              navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
           }
-          navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
         }
       }
     }
@@ -179,6 +207,7 @@ const IPFSPage = () => {
                 <button className="buttons" style={{ margin: 'auto', display: 'block'}} onClick={() => handleButtonClick(key)}>Buy Package</button>
               )}
             </div>
+           
           );
         })}
       </div>
