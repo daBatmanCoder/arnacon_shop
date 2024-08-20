@@ -39,7 +39,7 @@ const IPFSPage = () => {
     if(uuidEmail){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
       requestSign(uuidEmail);
-      window.top.controller.receiveData("123");
+      // window.top.controller.receiveData("123");
     }
 
     fetch(ipfsUrl)
