@@ -26,3 +26,41 @@ const App = () => {
 };
 
 export default App;
+
+
+class Controller {
+
+    constructor() {
+        this.guiFrame = document.getElementById('guiFrame');
+    }
+
+    receiveData(_data) {
+      console.log("Received data from GUI: " + _data);
+        const data = JSON.parse(_data);
+        this.guiFrame.contentWindow.postMessage(data, '*');
+    }
+
+    sendMessageToNativeApp(jsonData) {
+
+        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeHandler) {
+            window.webkit.messageHandlers.nativeHandler.postMessage(JSON.stringify(jsonData));
+        } else if (window.AndroidBridge && window.AndroidBridge.processAction) {
+            console.log(JSON.stringify(jsonData));
+            window.AndroidBridge.processAction(JSON.stringify(jsonData));
+        } else {
+            console.log("Native interface not available");
+        }
+    }
+
+    signData(data) {
+        this.sendMessageToNativeApp({
+            action: 'sign_data',
+            body: {data: data}
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    window.top.controller = new Controller();
+});
+ 
