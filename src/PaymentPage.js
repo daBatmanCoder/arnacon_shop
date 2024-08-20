@@ -10,7 +10,7 @@ const PaymentPage = () => {
   const [processing, setProcessing] = useState(false);  // State to manage the display of the processing message
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
-  const { selectedItem, itemId, userAddress } = location.state || {};
+  const { selectedItem, itemId, userAddress, uuidEmail } = location.state || {};
 
     // In PaymentPage component
   const handleReturn = () => {
@@ -58,6 +58,8 @@ const PaymentPage = () => {
     console.log("user_Address is: " + userAddress);
     console.log("currency is: " + currency);
     console.log("Success URL is: " + success_url);
+    console.log(" uuid email code:" + uuidEmail);
+
 
       try {
       
