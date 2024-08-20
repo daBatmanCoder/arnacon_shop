@@ -25,7 +25,7 @@ const IPFSPage = () => {
     let ipfsUrl;
     console.log("User Address is: " + userAddress);
     
-    const angularEMAILURL = "https://www.youtube.com/";
+    const angularEMAILURL = "https://angular-docker-o4h4ohxpva-uc.a.run.app";
 
 
     const handleDataReceive = (event) => {
