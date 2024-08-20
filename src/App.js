@@ -36,7 +36,7 @@ class Controller {
 
   receiveData(_data) {
       const data = JSON.parse(_data);
-      document.dispatchEvent(new CustomEvent('onDataReceived', { detail: data }));
+      document.dispatchEvent(new CustomEvent('onDataReceived', { detail: data.body.xsign }));
   }
 }
 
