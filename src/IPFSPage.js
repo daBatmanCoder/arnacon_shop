@@ -67,7 +67,8 @@ const IPFSPage = () => {
         } else{
           if(uuidEmail){
             console.log("UUID Email: " + uuidEmail);
-            navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, uuidEmail} });
+            requestSign(uuidEmail);
+            //navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, uuidEmail} });
           }
           navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
         }
@@ -75,7 +76,36 @@ const IPFSPage = () => {
     }
   };
 
+  const requestSign = (dataToSign) => {
+    const request = {
+      action: "sign-data",
+      body: {data: dataToSign}
+    };
 
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.buttonPressed) {
+      window.webkit.messageHandlers.buttonPressed.postMessage(JSON.stringify(request))
+    } else if (window.AndroidBridge && window.AndroidBridge.processAction) {
+      window.AndroidBridge.processAction(JSON.stringify(request));
+    } else {
+      console.log("Native interface not available");
+    }
+    
+  };
+
+  let sign; 
+
+  window.addEventListener('message', (event) => {
+    console.log('Received message:', event.data);
+    const data = event.data;
+    const action = data.action;
+    const body = data.body;
+
+    if (action == 'data-retrieved') {
+      sign = body.xsign;
+      console.log("Sign: " + sign);
+    }
+
+  });
   
 
   useEffect(() => {
@@ -99,6 +129,8 @@ const IPFSPage = () => {
   
       return symbols[currency] || currency;
     };
+
+
   
     const getPriceCurrencyAndDuration = (attributes) => {
       let price = '';
@@ -149,5 +181,6 @@ const IPFSPage = () => {
 
 
 export default IPFSPage;
+
 
 
