@@ -5,6 +5,7 @@ import { useData } from './DataContext';
 
 let keyOfSelectedItem;
 let selectedItemGlobal;
+let timestampForEmail;
 
 const IPFSPage = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const IPFSPage = () => {
           console.log("UUID Email: " + uuidEmail);
           sendToCloudForEMAIL(signedUUID, uuidEmail); // Compressed signed
         } else {
+          console.log("Timestamp is: " + timestampForEmail);
           urlToMoveToEMAIL = angularEMAILURL + '?timestamp=' + timestampForEmail + '&signature=' + signedUUID;
           console.log(urlToMoveToEMAIL);
           window.location.href = urlToMoveToEMAIL;
@@ -83,7 +85,6 @@ const IPFSPage = () => {
       selectedItemGlobal = data[key];
   };
 
-  let timestampForEmail;
 
   const sendToCloudForEMAIL = (signedUUID, uuidEmail) => {
     console.log(keyOfSelectedItem);
@@ -115,6 +116,8 @@ const IPFSPage = () => {
         } else{
           if(selectedItem.name === "EMAIL"){
             timestampForEmail = Date.now();
+            console.log("Timestamp when defining is: " + timestampForEmail);
+
             requestSign(timestampForEmail);
           } else{
               navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });

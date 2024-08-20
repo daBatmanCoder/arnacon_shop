@@ -42,6 +42,7 @@ class Controller {
 
 document.addEventListener('DOMContentLoaded', function() {
   window.top.controller = new Controller();
+  
 });
 
 //{"action":"data-retrieved","body":{"xsign":"pvifeOo4gQrDoxqwt/NlfGFICW4/seHOpcsvVcPX66F5OmL0HhBOxe7gRjazGwKYWee/7SyDYv8LUN6UKHGrrhs="}}
