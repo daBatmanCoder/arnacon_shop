@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams  } from 'react-router-dom';
 import './ipfs_page_design.css'; // Import the CSS file
+import { useData } from './DataContext';
 
 
 
@@ -11,25 +12,36 @@ const IPFSPage = () => {
   const [searchParams] = useSearchParams();
   let userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
   let uuidEmail = searchParams.get('uuid_email');
+  const { dataer, updateData } = useData();
 
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+
     let ipfsUrl;
     console.log("User Address is: " + userAddress);
-    requestSign(uuidEmail);
+    
 
-    // if(isClient){
-    //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmchPnmwwMe48Z8ykPCtdpenQ8XTAnSqruDjGUCw4agLPe";
-    // } else{
-    //   ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZMURXmxxpd8hSuWQBuSc8MjRJJpFE3UGiAUyrLYWaGdJ";
-    // }
+
+    const handleDataReceive = (event) => {
+        const signedUUID = event.detail;
+        console.log("UUID Email: " + uuidEmail);
+        console.log("Signed UUID: " + signedUUID);
+        // sendToCloud(signedUUID, uuidEmail); // Compressed signed
+    };
+    
+    document.addEventListener('onDataReceived', handleDataReceive);
+
     ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmbJqRZJhpd2dLwKRC5b6FkUya9vKuYP1uUK58xRy2yvVT";
+
     if(uuidEmail){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
+      requestSign(uuidEmail);
+      window.top.controller.receiveData("123");
     }
+
     fetch(ipfsUrl)
       .then(response => response.text())
       .then(text => {
@@ -48,7 +60,12 @@ const IPFSPage = () => {
         console.error('Error fetching IPFS content:', error);
         setIsLoading(false);
       });
-  }, [location]);
+      return () => {
+        document.removeEventListener('onDataReceived', handleDataReceive);
+
+
+      };
+  }, [location, updateData]);
 
   const handlePhotoClick = (key) => {
     setSelectedItemKey(key);
@@ -69,7 +86,8 @@ const IPFSPage = () => {
         } else{
           if(uuidEmail){
             console.log("UUID Email: " + uuidEmail);
-            requestSign(uuidEmail);
+            // requestSign(uuidEmail);
+
             //navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, uuidEmail} });
           }
           navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
@@ -94,21 +112,7 @@ const IPFSPage = () => {
     
   };
 
-  let sign; 
 
-  window.addEventListener('message', (event) => {
-    console.log('Received message:', event.data);
-    const data = event.data;
-    const action = data.action;
-    const body = data.body;
-
-    if (action == 'data-retrieved') {
-      sign = body.xsign;
-      console.log("Sign: " + sign);
-    }
-
-  });
-  
 
   useEffect(() => {
     if (location.state?.returnedFromPayment && location.state?.selectedItem) {
@@ -158,6 +162,7 @@ const IPFSPage = () => {
   }
 
   return (
+
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
       <h1>Cellact Store</h1>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>

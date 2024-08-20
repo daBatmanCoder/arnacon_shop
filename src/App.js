@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { DataProvider } from './DataContext'; // Import the DataProvider
 import HomePage from './HomePage';       // Import the HomePage component
 import InputPage from './InputPage';
 import IPFSPage from './IPFSPage';
@@ -10,6 +11,7 @@ import PaymentFailurePage from './PaymentFailurePage';
 
 const App = () => {
   return (
+    <DataProvider>
     <Router>
       <Routes>
         <Route path="/" element={<IPFSPage />} />              // New Route for HomePage
@@ -22,6 +24,7 @@ const App = () => {
         <Route path="/payment/failure" element={<PaymentFailurePage />} />
       </Routes>
     </Router>
+    </DataProvider>
   );
 };
 
@@ -29,38 +32,18 @@ export default App;
 
 
 class Controller {
+  constructor() {}
 
-    constructor() {
-        this.guiFrame = document.getElementById('guiFrame');
-    }
-
-    receiveData(_data) {
-      console.log("Received data from GUI: " + _data);
-        const data = JSON.parse(_data);
-        this.guiFrame.contentWindow.postMessage(data, '*');
-    }
-
-    sendMessageToNativeApp(jsonData) {
-
-        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeHandler) {
-            window.webkit.messageHandlers.nativeHandler.postMessage(JSON.stringify(jsonData));
-        } else if (window.AndroidBridge && window.AndroidBridge.processAction) {
-            console.log(JSON.stringify(jsonData));
-            window.AndroidBridge.processAction(JSON.stringify(jsonData));
-        } else {
-            console.log("Native interface not available");
-        }
-    }
-
-    signData(data) {
-        this.sendMessageToNativeApp({
-            action: 'sign_data',
-            body: {data: data}
-        });
-    }
+  receiveData(_data) {
+      const data = JSON.parse(_data);
+      document.dispatchEvent(new CustomEvent('onDataReceived', { detail: data }));
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    window.top.controller = new Controller();
+  window.top.controller = new Controller();
 });
+
+//{"action":"data-retrieved","body":{"xsign":"pvifeOo4gQrDoxqwt/NlfGFICW4/seHOpcsvVcPX66F5OmL0HhBOxe7gRjazGwKYWee/7SyDYv8LUN6UKHGrrhs="}}
+
  
