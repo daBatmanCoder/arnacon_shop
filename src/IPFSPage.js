@@ -6,6 +6,7 @@ import { useData } from './DataContext';
 let keyOfSelectedItem;
 let selectedItemGlobal;
 let timestampForEmail;
+let globalData;
 
 const IPFSPage = () => {
   const navigate = useNavigate();
@@ -28,13 +29,15 @@ const IPFSPage = () => {
     
     const angularEMAILURL = "https://angular-docker-o4h4ohxpva-uc.a.run.app";
 
-
     const handleDataReceive = (event) => {
         const signedUUID = event.detail;
         console.log("Signed UUID: " + signedUUID);
 
         if(uuidEmail){
           console.log("UUID Email: " + uuidEmail);
+          keyOfSelectedItem = 1;
+          console.log("global data after data received: " + globalData);
+          selectedItemGlobal = globalData[1];
           sendToCloudForEMAIL(signedUUID, uuidEmail); // Compressed signed
         } else {
           console.log("Timestamp is: " + timestampForEmail);
@@ -50,7 +53,6 @@ const IPFSPage = () => {
 
     if(uuidEmail){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
-      requestSign(uuidEmail);
     }
 
     fetch(ipfsUrl)
@@ -60,12 +62,16 @@ const IPFSPage = () => {
           // eslint-disable-next-line no-eval
           const dictData = eval('(' + text + ')');
           setData(dictData);
+          globalData = dictData;
           Object.entries(dictData).forEach(([key, value]) => {
           });
         } catch (error) {
           console.error('Error processing data:', error);
         }
         setIsLoading(false);
+        console.log("UUID Email:asdasdsadasddasd " + uuidEmail);
+        requestSign(uuidEmail);
+        window.top.controller.receiveData("{\"action\":\"data-retrieved\",\"body\":{\"xsign\":\"pvifeOo4gQrDoxqwt/NlfGFICW4/seHOpcsvVcPX66F5OmL0HhBOxe7gRjazGwKYWee/7SyDYv8LUN6UKHGrrhs=\"}}")
       })
       .catch(error => {
         console.error('Error fetching IPFS content:', error);
@@ -99,7 +105,6 @@ const IPFSPage = () => {
   const handleButtonClick = () => {
 
     if(uuidEmail){
-      window.top.controller.receiveData("{\"action\":\"data-retrieved\",\"body\":{\"xsign\":\"pvifeOo4gQrDoxqwt/NlfGFICW4/seHOpcsvVcPX66F5OmL0HhBOxe7gRjazGwKYWee/7SyDYv8LUN6UKHGrrhs=\"}}")
     } 
     const url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
 
