@@ -36,7 +36,6 @@ const IPFSPage = () => {
         if(uuidEmail){
           console.log("UUID Email: " + uuidEmail);
           keyOfSelectedItem = 1;
-          console.log("global data after data received: " + globalData);
           selectedItemGlobal = globalData[1];
           sendToCloudForEMAIL(signedUUID, uuidEmail); // Compressed signed
         } else {
@@ -69,9 +68,9 @@ const IPFSPage = () => {
           console.error('Error processing data:', error);
         }
         setIsLoading(false);
-        console.log("UUID Email:asdasdsadasddasd " + uuidEmail);
-        requestSign(uuidEmail);
-        window.top.controller.receiveData("{\"action\":\"data-retrieved\",\"body\":{\"xsign\":\"pvifeOo4gQrDoxqwt/NlfGFICW4/seHOpcsvVcPX66F5OmL0HhBOxe7gRjazGwKYWee/7SyDYv8LUN6UKHGrrhs=\"}}")
+        if(uuidEmail){
+          requestSign(uuidEmail);
+        }
       })
       .catch(error => {
         console.error('Error fetching IPFS content:', error);
@@ -87,15 +86,12 @@ const IPFSPage = () => {
 
   const handlePhotoClick = (key) => {
       setSelectedItemKey(key);
-      keyOfSelectedItem = key;
-      selectedItemGlobal = data[key];
   };
 
 
   const sendToCloudForEMAIL = (signedUUID, uuidEmail) => {
-    console.log(keyOfSelectedItem);
+
     const selectedItem = selectedItemGlobal;
-    console.log(selectedItem);
 
     if (keyOfSelectedItem && selectedItem) {
       navigate('/payment', { state: { selectedItem, itemId: keyOfSelectedItem, userAddress: "nope", uuidEmail, signedUUID} });
@@ -122,7 +118,6 @@ const IPFSPage = () => {
           if(selectedItem.name === "EMAIL"){
             timestampForEmail = Date.now();
             console.log("Timestamp when defining is: " + timestampForEmail);
-
             requestSign(timestampForEmail);
           } else{
               navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
