@@ -48,7 +48,7 @@ const IPFSPage = () => {
     
     document.addEventListener('onDataReceived', handleDataReceive);
 
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmbJqRZJhpd2dLwKRC5b6FkUya9vKuYP1uUK58xRy2yvVT";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmTVuKgDDCqYvox1t7Ak7uomYxpCxoV1Y7jswicTXFHRms";
 
     if(uuidEmail){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
@@ -100,8 +100,6 @@ const IPFSPage = () => {
 
   const handleButtonClick = () => {
 
-    if(uuidEmail){
-    } 
     const url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
 
     if (selectedItemKey && data[selectedItemKey]) {
@@ -120,7 +118,13 @@ const IPFSPage = () => {
             console.log("Timestamp when defining is: " + timestampForEmail);
             requestSign(timestampForEmail);
           } else{
+            if(selectedItem.name === "Coupon"){
+              console.log(selectedItem.attributes.url);
+              const urls = 'https://coupon-app-beryl.vercel.app' + '?user_address=' + userAddress;
+              window.location.href = urls;
+            } else{
               navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
+            }
           }
         }
       }
