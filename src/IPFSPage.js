@@ -48,8 +48,10 @@ const IPFSPage = () => {
     
     document.addEventListener('onDataReceived', handleDataReceive);
 
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmTVuKgDDCqYvox1t7Ak7uomYxpCxoV1Y7jswicTXFHRms";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmXEYjmRoQKySPKLi4pujh1y29s8cxhSBLsPMv2Wepu6qK";
 
+    // 1 item-landline
+    // ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZbRQixSqkvuwKmRkvd8kc8z6xmU6BXG4PHxXekAoioUY"
     if(uuidEmail){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
     }
