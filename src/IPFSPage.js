@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams  } from 'react-router-dom';
 import './ipfs_page_design.css'; // Import the CSS file
 import { useData } from './DataContext';
+import { Switch } from 'antd'; // Assuming you are using Ant Design as your UI library
 
 let keyOfSelectedItem;
 let selectedItemGlobal;
@@ -20,6 +21,8 @@ const IPFSPage = () => {
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isProdEnv, setProdEnv] = useState(true); // New state for toggling environments
+
   let urlToMoveToEMAIL;
 
   useEffect(() => {
@@ -90,13 +93,17 @@ const IPFSPage = () => {
       setSelectedItemKey(key);
   };
 
+  const handleEnvToggle = () => {
+    setProdEnv(!isProdEnv); // Toggle between test and production
+  };
+
 
   const sendToCloudForEMAIL = (signedUUID, uuidEmail) => {
 
     const selectedItem = selectedItemGlobal;
 
     if (keyOfSelectedItem && selectedItem) {
-      navigate('/payment', { state: { selectedItem, itemId: keyOfSelectedItem, userAddress: "nope", uuidEmail, signedUUID} });
+      navigate('/payment', { state: { selectedItem, itemId: keyOfSelectedItem, userAddress: "nope",isProdEnv, uuidEmail, signedUUID} });
     }
   }
 
@@ -125,7 +132,8 @@ const IPFSPage = () => {
               const urls = 'https://coupon-app-beryl.vercel.app' + '?user_address=' + userAddress;
               window.location.href = urls;
             } else{
-              navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress} });
+              console.log(isProdEnv);
+              navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, isProd: isProdEnv} });
             }
           }
         }
@@ -202,6 +210,8 @@ const IPFSPage = () => {
 
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#f0f0f0' }}>
       <h1>Cellact Store</h1>
+      <Switch checked={isProdEnv} onChange={handleEnvToggle} checkedChildren="Prod" unCheckedChildren="Test" />
+
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {Object.entries(data).map(([key, item]) => {
           const { price, currencySymbol, duration } = getPriceCurrencyAndDuration(item.attributes);

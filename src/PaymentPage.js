@@ -10,7 +10,7 @@ const PaymentPage = () => {
   const [processing, setProcessing] = useState(false);  // State to manage the display of the processing message
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
-  const { selectedItem, itemId, userAddress, uuidEmail, signedUUID} = location.state || {};
+  const { selectedItem, itemId, userAddress, isProd, uuidEmail, signedUUID} = location.state || {};
 
 
     // In PaymentPage component
@@ -59,6 +59,7 @@ const PaymentPage = () => {
     console.log("user_Address is: " + userAddress);
     console.log("currency is: " + currency);
     console.log("Success URL is: " + success_url);
+    console.log("Is it production: " + isProd);
 
     let body_to_send_server = {
       packageId: itemId,       
