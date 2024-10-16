@@ -15,7 +15,7 @@ const PaymentPage = () => {
 
     // In PaymentPage component
   const handleReturn = () => {
-    navigate('/shop', { state: { returnedFromPayment: true, selectedItem } });
+    navigate('/shop', { state: { returnedFromPayment: true, selectedItem, userAddress } });
   };
 
   const calledOnce = useRef(false);
@@ -70,7 +70,7 @@ const PaymentPage = () => {
       currency: currency,
       success_url: success_url,
       failure_url:"https://main-failure-page-309305771885.europe-west4.run.app/",
-      ifProd:isProd
+      isProd:isProd
     }
 
     if (userAddress === "nope"){

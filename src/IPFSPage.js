@@ -14,9 +14,12 @@ const IPFSPage = () => {
   const location = useLocation();
   // let { isClient, userAddress } = location.state; // Access the state passed via navigate
   const [searchParams] = useSearchParams();
-  let userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
+  userAddress = searchParams.get('user_address');  // If your URL is "/some-path?user_address=some_value"
   let uuidEmail = searchParams.get('uuid_email');
   const { dataer, updateData } = useData();
+
+  let { returnedFromPayment, selectedItem, userAddress } = location.state || {};
+
 
   const [data, setData] = useState({});
   const [selectedItemKey, setSelectedItemKey] = useState(null);
