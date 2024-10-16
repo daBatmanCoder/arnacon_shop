@@ -69,7 +69,8 @@ const PaymentPage = () => {
       user_address: userAddress,
       currency: currency,
       success_url: success_url,
-      failure_url:"https://main-failure-page-309305771885.europe-west4.run.app/"
+      failure_url:"https://main-failure-page-309305771885.europe-west4.run.app/",
+      ifProd:isProd
     }
 
     if (userAddress === "nope"){
