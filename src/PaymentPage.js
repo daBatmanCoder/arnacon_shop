@@ -15,7 +15,7 @@ const PaymentPage = () => {
 
     // In PaymentPage component
   const handleReturn = () => {
-    navigate('/shop', { state: { returnedFromPayment: true, selectedItem, userAddress } });
+    navigate('/shop', { state: { userAddress } });
   };
 
   const calledOnce = useRef(false);
