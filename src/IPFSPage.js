@@ -42,6 +42,7 @@ const IPFSPage = () => {
     
     const angularEMAILURL = "https://angular-docker-o4h4ohxpva-uc.a.run.app";
 
+    
     const handleDataReceive = (event) => {
         const signedUUID = event.detail;
         console.log("Signed UUID: " + signedUUID);
@@ -64,6 +65,7 @@ const IPFSPage = () => {
     ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmXEYjmRoQKySPKLi4pujh1y29s8cxhSBLsPMv2Wepu6qK";
 
     // 1 item-landline
+    
     // ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZbRQixSqkvuwKmRkvd8kc8z6xmU6BXG4PHxXekAoioUY"
     if(uuidEmail){
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
