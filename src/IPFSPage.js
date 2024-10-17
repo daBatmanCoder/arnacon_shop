@@ -41,7 +41,6 @@ const IPFSPage = () => {
     console.log("User Address is: " + userAddress);
     
     const angularEMAILURL = "https://angular-docker-o4h4ohxpva-uc.a.run.app";
-
     
     const handleDataReceive = (event) => {
         const signedUUID = event.detail;
@@ -62,7 +61,7 @@ const IPFSPage = () => {
     
     document.addEventListener('onDataReceived', handleDataReceive);
 
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmXEYjmRoQKySPKLi4pujh1y29s8cxhSBLsPMv2Wepu6qK";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmfMueM7evQdG5gs1ojhv8LeXRmqXcVV3YPW5GrrG4bM3T";
 
     // 1 item-landline
     
@@ -123,6 +122,9 @@ const IPFSPage = () => {
 
     const url = 'https://standard-telnyx-app.vercel.app/?user_address=' + userAddress;
 
+    const telegramURL = "https://telegram-auth-two.vercel.app/?user_address=" + userAddress;
+
+
     if (selectedItemKey && data[selectedItemKey]) {
       const selectedItem = data[selectedItemKey];
       if (selectedItem.name === "WorldWide"){
@@ -144,8 +146,13 @@ const IPFSPage = () => {
               const urls = 'https://coupon-app-beryl.vercel.app' + '?user_address=' + userAddress;
               window.location.href = urls;
             } else{
+              if(selectedItem.name === "TELEGRAM"){
+                console.log(selectedItem.attributes.url);
+                window.location.href = telegramURL;
+              } else{
               console.log(isProdEnv);
               navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, isProd: isProdEnv} });
+              }
             }
           }
         }
