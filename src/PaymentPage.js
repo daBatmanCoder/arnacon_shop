@@ -144,6 +144,7 @@ const PaymentPage = () => {
       "transactionPrice": transaction_price,
       "subscriptionPrice": subscription_price,
       "user_address": userAddress,
+      "uuid_to_sign": uuid,
       "currency": currency,
       "success_url": success_url,
       "failure_url": "https://main-failure-page-309305771885.europe-west4.run.app/",
