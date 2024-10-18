@@ -138,6 +138,7 @@ const PaymentPage = () => {
     const jsonForURL = {
       "package_type": typeOfProduct,
       "customer_id":uuid,
+      "password":"",
       "packageId": itemId,
       "packageName": name,
       "transactionPrice": transaction_price,
