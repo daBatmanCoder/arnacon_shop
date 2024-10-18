@@ -127,7 +127,7 @@ const PaymentPage = () => {
     
     console.log("openTON");
     
-    const uuid = uuid();
+    const uuid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
     console.log("uuid is: " + uuid);
 
