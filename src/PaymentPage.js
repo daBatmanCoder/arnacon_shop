@@ -131,7 +131,9 @@ const PaymentPage = () => {
 
     console.log("uuid is: " + uuid);
 
-    const typeOfProduct = getProductType(name);
+    let typeOfProduct = getProductType(name);
+
+    typeOfProduct = "TON";
 
     const jsonForURL = {
       "package_type": typeOfProduct,
@@ -161,23 +163,23 @@ const PaymentPage = () => {
       case 'GSM1':
       case 'GSM2':
       case 'GSM3':
-          return 'AirAlo_eSim';  // GSM-related products
+          return 'normal_gsm';  // GSM-related products
           
       case 'WorldWide':
           return 'Telnyx_Package';  // Worldwide product
       
       case 'CellENS':
       case 'CellENS2':
+      case 'EMAIL':
       case 'ENS':
       case 'TELEGRAM':
           return 'web2_ens';  // ENS and Telegram-related products
           
-      case 'EMAIL':
       case 'NewSP':
       case 'Coupon':
       case 'Redirect':
       case 'Free':
-          return 'normal_gsm';  // Email, NewSP, Coupon, Redirect, Free product
+          return 'AirAlo_eSim';  // Email, NewSP, Coupon, Redirect, Free product
       
       default:
           return 'Unknown Package';  // In case of an undefined product name
