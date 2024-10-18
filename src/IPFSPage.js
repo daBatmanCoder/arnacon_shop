@@ -162,8 +162,8 @@ const IPFSPage = () => {
 
   const requestSign = (dataToSign) => {
     const request = {
-      action: "sign-data",
-      body: {data: dataToSign}
+      action: "sign-data-temp",
+      body: {dataToSign}
     };
 
     if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.buttonPressed) {
