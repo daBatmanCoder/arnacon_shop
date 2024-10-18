@@ -42,6 +42,8 @@ const IPFSPage = () => {
     
     const angularEMAILURL = "https://angular-docker-o4h4ohxpva-uc.a.run.app";
     
+    console.log("UUID EMAIL: " + uuidEmail);
+    
     const handleDataReceive = (event) => {
         const signedUUID = event.detail;
         console.log("Signed UUID: " + signedUUID);
