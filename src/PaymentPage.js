@@ -133,7 +133,7 @@ const PaymentPage = () => {
 
     let typeOfProduct = getProductType(name);
 
-    typeOfProduct = "TON";
+    // typeOfProduct = "TON";
 
     const jsonForURL = {
       "package_type": typeOfProduct,
