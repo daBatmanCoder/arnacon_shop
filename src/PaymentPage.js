@@ -124,10 +124,12 @@ const PaymentPage = () => {
   };
 
   const open_ton = async () => {
-
     
     console.log("openTON");
-    const uuid = uuidv4();
+    
+    const uuid = uuid();
+
+
     const jsonForURL = {
       "customer_id":uuid,
       "packageId": itemId,
