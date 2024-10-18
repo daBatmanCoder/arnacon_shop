@@ -124,10 +124,31 @@ const PaymentPage = () => {
   };
 
   const open_ton = () => {
+
+    
+ 
     
     console.log("openTON");
-    window.location.href = 'ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=10000000000&text=hello&callback=arnacon://verify'
+    const url = "ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=" + 10000000000  + "&text="+ userAddress + "&callback=arnacon://verify"
+    console.log(url);
+    requestTONSig(url);
 
+  };
+
+  const requestTONSig = (urlToSend) => {
+    const request = {
+      action: "open-deeplink",
+      body: {url: urlToSend}
+    };
+
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.buttonPressed) {
+      window.webkit.messageHandlers.buttonPressed.postMessage(JSON.stringify(request))
+    } else if (window.AndroidBridge && window.AndroidBridge.processAction) {
+      window.AndroidBridge.processAction(JSON.stringify(request));
+    } else {
+      console.log("Native interface not available");
+    }
+    
   };
 
   const getCurrencySymbol = (currency) => {
