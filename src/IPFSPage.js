@@ -46,7 +46,7 @@ const IPFSPage = () => {
         const signedUUID = event.detail;
         console.log("Signed UUID: " + signedUUID);
 
-        if(signedUUID){
+        if(uuidEmail){
           console.log("UUID Email: " + uuidEmail);
           keyOfSelectedItem = 1;
           selectedItemGlobal = globalData[1];
