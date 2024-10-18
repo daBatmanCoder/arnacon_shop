@@ -126,6 +126,7 @@ const PaymentPage = () => {
   const open_ton = () => {
     
     console.log("openTON");
+    window.location.href = 'ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=10000000000&text={"test":"test"}&callback=https://www.youtube.com/watch?v=xvFZjo5PgG0'
 
   };
 
