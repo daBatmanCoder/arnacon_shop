@@ -123,6 +123,12 @@ const PaymentPage = () => {
 
   };
 
+  const open_ton = () => {
+    
+    console.log("openTON");
+
+  };
+
   const getCurrencySymbol = (currency) => {
     const symbols = {
       USD: '$',
@@ -175,6 +181,7 @@ const PaymentPage = () => {
         {processing && <div id='process'>Processing...</div>}
       </div>
       <button disabled={!checkoutUrl} className="buttons"  onClick={open_stripe}>Pay Now in Stripe</button>
+      <button className="buttons"  onClick={open_ton}>Pay Now With $TON</button>
       <button onClick={handleReturn} className="buttons"  style={{ marginTop:'30px'}}>Return Back</button>
     </div>
   );
