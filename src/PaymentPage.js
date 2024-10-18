@@ -132,7 +132,6 @@ const PaymentPage = () => {
     console.log("uuid is: " + uuid);
 
     const typeOfProduct = getProductType(name);
-   
 
     const jsonForURL = {
       "package_type": typeOfProduct,
@@ -157,7 +156,7 @@ const PaymentPage = () => {
 
   };
 
-  const getProductType = (name) => {
+  const getProductType = (productName) => {
     switch (productName) {
       case 'GSM1':
       case 'GSM2':
