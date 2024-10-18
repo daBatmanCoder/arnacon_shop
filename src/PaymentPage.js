@@ -123,10 +123,8 @@ const PaymentPage = () => {
 
   };
 
-  const open_ton = () => {
+  const open_ton = async () => {
 
-    
- 
     
     console.log("openTON");
     const uuid = uuidv4();
@@ -142,7 +140,7 @@ const PaymentPage = () => {
       "failure_url": "https://main-failure-page-309305771885.europe-west4.run.app/",
     }
 
-    sendJsonToServer(jsonForURL);
+    await sendJsonToServer(jsonForURL);
     
     const url = "ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=" + 100000000  + "&text="+ uuid + "&callback=arnacon://verify"
     requestTONSig(url);
@@ -150,16 +148,19 @@ const PaymentPage = () => {
   };
 
   const sendJsonToServer = async (jsonForURL) => {
-
-    const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/new_order_dispatcher', {
+    try{
+      const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/new_order_dispatcher', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(jsonForURL),
       });
-
       console.log("Response from server:", response);
+
+    } catch (error) {
+    }
+
   }
 
   const requestTONSig = (urlToSend) => {
