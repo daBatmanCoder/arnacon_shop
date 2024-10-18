@@ -129,7 +129,7 @@ const PaymentPage = () => {
  
     
     console.log("openTON");
-    const url = "ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=" + 10000000000  + "&text="+ userAddress + "&callback=arnacon://verify"
+    const url = "ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=" + 100000000  + "&text="+ userAddress + "&callback=arnacon://verify"
     console.log(url);
     requestTONSig(url);
 
