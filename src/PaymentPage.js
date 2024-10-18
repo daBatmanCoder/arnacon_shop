@@ -129,6 +129,7 @@ const PaymentPage = () => {
     
     const uuid = uuid();
 
+    console.log("uuid is: " + uuid);
 
     const jsonForURL = {
       "customer_id":uuid,
@@ -142,6 +143,8 @@ const PaymentPage = () => {
       "failure_url": "https://main-failure-page-309305771885.europe-west4.run.app/",
     }
 
+
+
     await sendJsonToServer(jsonForURL);
     
     const url = "ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=" + 100000000  + "&text="+ uuid + "&callback=arnacon://verify"
@@ -150,6 +153,8 @@ const PaymentPage = () => {
   };
 
   const sendJsonToServer = async (jsonForURL) => {
+    console.log("Sending json to server");
+
     try{
       const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/new_order_dispatcher', {
         method: 'POST',
@@ -161,6 +166,7 @@ const PaymentPage = () => {
       console.log("Response from server:", response);
 
     } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
     }
 
   }
