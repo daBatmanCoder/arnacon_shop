@@ -131,7 +131,11 @@ const PaymentPage = () => {
 
     console.log("uuid is: " + uuid);
 
+    const typeOfProduct = getProductType(name);
+   
+
     const jsonForURL = {
+      "package_type": typeOfProduct,
       "customer_id":uuid,
       "packageId": itemId,
       "packageName": name,
@@ -152,6 +156,35 @@ const PaymentPage = () => {
     requestTONSig(url);
 
   };
+
+  const getProductType = (name) => {
+    switch (productName) {
+      case 'GSM1':
+      case 'GSM2':
+      case 'GSM3':
+          return 'AirAlo_eSim';  // GSM-related products
+          
+      case 'WorldWide':
+          return 'Telnyx_Package';  // Worldwide product
+      
+      case 'CellENS':
+      case 'CellENS2':
+      case 'ENS':
+      case 'TELEGRAM':
+          return 'web2_ens';  // ENS and Telegram-related products
+          
+      case 'EMAIL':
+      case 'NewSP':
+      case 'Coupon':
+      case 'Redirect':
+      case 'Free':
+          return 'normal_gsm';  // Email, NewSP, Coupon, Redirect, Free product
+      
+      default:
+          return 'Unknown Package';  // In case of an undefined product name
+  }
+  }
+
 
   const sendJsonToServer = async (jsonForURL) => {
     console.log("Sending json to server");
