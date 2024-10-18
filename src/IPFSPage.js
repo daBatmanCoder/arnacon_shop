@@ -43,8 +43,9 @@ const IPFSPage = () => {
     const angularEMAILURL = "https://angular-docker-o4h4ohxpva-uc.a.run.app";
     
     console.log("UUID EMAIL: " + uuidEmail);
-    
+
     const handleDataReceive = (event) => {
+        console.log("handleDataReceive HERE");
         const signedUUID = event.detail;
         console.log("Signed UUID: " + signedUUID);
 
@@ -52,7 +53,7 @@ const IPFSPage = () => {
           console.log("UUID Email: " + uuidEmail);
           keyOfSelectedItem = 1;
           selectedItemGlobal = globalData[1];
-          sendToCloudForEMAIL(signedUUID, uuidEmail); // Compressed signed
+          sendToCloudForEMAIL(signedUUID, timestampForEmail); // Compressed signed
         } else {
           console.log("Timestamp is: " + timestampForEmail);
           urlToMoveToEMAIL = angularEMAILURL + '?timestamp=' + timestampForEmail + '&signature=' + signedUUID;
@@ -69,6 +70,7 @@ const IPFSPage = () => {
     
     // ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmZbRQixSqkvuwKmRkvd8kc8z6xmU6BXG4PHxXekAoioUY"
     if(uuidEmail){
+      console.log("In 1 email aread");
       ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmamLnyRfuEvH7fxzT9tMXuzr7gbEvDTYTmoFsFh5aQWQK"
     }
 
@@ -87,6 +89,7 @@ const IPFSPage = () => {
         }
         setIsLoading(false);
         if(uuidEmail){
+          console.log("Request sign from native for UUID: " + uuidEmail)
           requestSign(uuidEmail);
         }
       })
