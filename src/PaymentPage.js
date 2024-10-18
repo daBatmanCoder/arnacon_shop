@@ -129,7 +129,19 @@ const PaymentPage = () => {
  
     
     console.log("openTON");
-    const url = "ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=" + 100000000  + "&text="+ userAddress + "&callback=arnacon://verify"
+    const jsonForURL = {
+      "packageId": itemId,
+      "packageName": name,
+      "transactionPrice": transaction_price,
+      "subscriptionPrice": subscription_price,
+      "user_address": userAddress,
+      "currency": currency,
+      "success_url": success_url,
+      "failure_url": "https://main-failure-page-309305771885.europe-west4.run.app/",
+    }
+
+    const jsonString = JSON.stringify(jsonForURL);
+    const url = "ton://transfer/0QDygElEywPigDU_GIBNMYgQinv6bQZfzFRcbrX0xKx-cLqU?amount=" + 100000000  + "&text="+ jsonString + "&callback=arnacon://verify"
     console.log(url);
     requestTONSig(url);
 
