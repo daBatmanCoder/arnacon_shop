@@ -53,7 +53,7 @@ const IPFSPage = () => {
           console.log("UUID Email: " + uuidEmail);
           keyOfSelectedItem = 1;
           selectedItemGlobal = globalData[1];
-          sendToCloudForEMAIL(signedUUID, timestampForEmail); // Compressed signed
+          sendToCloudForEMAIL(signedUUID, uuidEmail); // Compressed signed
         } else {
           console.log("Timestamp is: " + timestampForEmail);
           urlToMoveToEMAIL = angularEMAILURL + '?timestamp=' + timestampForEmail + '&signature=' + signedUUID;
