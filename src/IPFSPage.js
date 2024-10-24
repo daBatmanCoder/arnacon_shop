@@ -64,7 +64,7 @@ const IPFSPage = () => {
     
     document.addEventListener('onDataReceived', handleDataReceive);
 
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmfMueM7evQdG5gs1ojhv8LeXRmqXcVV3YPW5GrrG4bM3T";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmdE3Zj2UFfNcB9gRPwxBy7ffJV7p9DGRvdmRHx1qNbb2B";
 
     // 1 item-landline
     
