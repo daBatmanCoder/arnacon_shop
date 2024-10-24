@@ -155,8 +155,14 @@ const IPFSPage = () => {
                 console.log(selectedItem.attributes.url);
                 window.location.href = telegramURL;
               } else{
-              console.log(isProdEnv);
-              navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, isProd: isProdEnv} });
+                if(selectedItem.name === "TNS"){
+                  console.log(selectedItem.attributes.url);
+                  const urlForTON = "https://ton-verif.vercel.app/?user_address=" + userAddress;
+                  window.location.href = urlForTON;
+                } else{
+                console.log(isProdEnv);
+                navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, isProd: isProdEnv} });
+                }
               }
             }
           }
