@@ -64,7 +64,7 @@ const IPFSPage = () => {
     
     document.addEventListener('onDataReceived', handleDataReceive);
 
-    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmWvstJ5acSjenstS24nZhB58j2e7geRB7YcnnyCdqKLWC";
+    ipfsUrl = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/QmbnJHDhnprTdfTJnFdBAz927pMcpiEXyyvDg58Fe2GdnC";
 
     // 1 item-landline
     
@@ -159,6 +159,10 @@ const IPFSPage = () => {
                   console.log(selectedItem.attributes.url);
                   const urlForTON = "https://ton-verif.vercel.app/?user_address=" + userAddress;
                   window.location.href = urlForTON;
+                } if(selectedItem.name === "MNP"){
+                  console.log(selectedItem.attributes.url);
+                  const urlForMNP = "https://asterisk-tts-test.web.app/?walletAddress=" + userAddress;
+                  window.location.href = urlForMNP;
                 } else{
                 console.log(isProdEnv);
                 navigate('/payment', { state: { selectedItem, itemId: selectedItemKey, userAddress, isProd: isProdEnv} });
