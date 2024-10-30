@@ -251,7 +251,7 @@ const IPFSPage = () => {
           const { price, currencySymbol, duration } = getPriceCurrencyAndDuration(item.attributes);
           return (
             <div key={key} style={{ flex: '1', maxWidth: '200px', margin: '10px', textAlign: 'center', boxSizing: 'border-box', border: selectedItemKey === key ? '2px solid blue' : 'none' }}>
-              <img src={item.image} alt={item.name} style={{ width: '200px', height: '200px', objectFit: 'cover', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handlePhotoClick(key)} />
+              <img src={item.image} alt={item.name} style={{ width: '196px', height: '200px', objectFit: 'cover', marginBottom: '10px', cursor: 'pointer' }} onClick={() => handlePhotoClick(key)} />
               <div>{`${currencySymbol}${price}`}</div>
               <div>{duration}</div>
               <h2>{item.name}</h2>
