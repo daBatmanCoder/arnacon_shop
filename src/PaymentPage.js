@@ -82,8 +82,8 @@ const PaymentPage = () => {
 
       try {
       
-        // const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
-        const response = await fetch('https://europe-west1-arnacon-staging-production.cloudfunctions.net/payment-link-generator', {
+        const response = await fetch('https://us-central1-arnacon-nl.cloudfunctions.net/send_stripe', {
+        // const response = await fetch('https://europe-west1-arnacon-staging-production.cloudfunctions.net/payment-link-generator', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
