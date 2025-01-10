@@ -23,7 +23,7 @@ const PaymentPage = () => {
   useEffect(() => {
     if (name === "Free"){
       console.log("Free package, no need to send to stripeasdadasd");
-      const data_to_send = { action: "ITEM", body: { item: "ANONYMOUS", sp : "ANONYMOUS" } }
+      const data_to_send = { action: "ITEM", body: { item: userAddress, sp : "ANONYMOUS" } }
       communicateWithNative(data_to_send);
     } else{
       if (!calledOnce.current) {  
