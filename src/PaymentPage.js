@@ -22,8 +22,14 @@ const PaymentPage = () => {
 
   useEffect(() => {
     if (name === "Free"){
+      const uuid45 = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      // generate a timestamp in the format of - "yyyy-MM-dd'T'HH:mm:ss.SSSSSS ->
+      const timestamp2 = getTimestamp()
+      const url2 = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/bafkreid2npzjcckmzxohbxy6hren7tnxytmycnnfufsosucndawzghcil4"
+
       console.log("Free package, no need to send to stripeasdadasd");
-      const data_to_send = { action: "ITEM", body: { item: userAddress, sp : "ANONYMOUS" } }
+      const data_to_send = { action: "ITEM", body: { item: userAddress,url:url2 , uuid: uuid45,packageType : "ANONYMOUS", timestmap: timestamp2 } }
+
       communicateWithNative(data_to_send);
     } else{
       if (!calledOnce.current) {  
@@ -47,6 +53,20 @@ const PaymentPage = () => {
       console.log("Native interface not available");
     }
   };
+
+function getTimestamp() {
+    const date = new Date();
+    
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const microseconds = String(date.getMilliseconds() * 1000).padStart(6, '0');
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${microseconds}`;
+}
 
   const sendToStripeWhatToBuy = async () => {
     setProcessing(true);  // Show processing message
