@@ -28,7 +28,7 @@ const PaymentPage = () => {
       const url2 = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/bafkreid2npzjcckmzxohbxy6hren7tnxytmycnnfufsosucndawzghcil4"
 
       console.log("Free package, no need to send to stripeasdadasd123123");
-      const data_to_send = { action: "new-item", body: { item: userAddress,url:url2 , uuid: uuid45,packageType : "ANONYMOUS", timestmap: timestamp2 } }
+      const data_to_send = { action: "new-item", body: { item: userAddress,url:url2 , uuid: uuid45,packageType : "ANONYMOUS", timestamp: timestamp2 } }
 
       communicateWithNative(data_to_send);
     } else{
