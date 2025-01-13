@@ -22,7 +22,7 @@ const PaymentPage = () => {
 
   useEffect(() => {
     if (name === "Free"){
-      const uuid45 = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      const uuid45 = generateUUID();
       // generate a timestamp in the format of - "yyyy-MM-dd'T'HH:mm:ss.SSSSSS ->
       const timestamp2 = getTimestamp()
       const url2 = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/bafkreid2npzjcckmzxohbxy6hren7tnxytmycnnfufsosucndawzghcil4"
@@ -53,6 +53,14 @@ const PaymentPage = () => {
       console.log("Native interface not available");
     }
   };
+
+  function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
 
 function getTimestamp() {
     const date = new Date();
