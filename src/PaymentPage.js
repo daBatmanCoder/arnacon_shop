@@ -25,7 +25,7 @@ const PaymentPage = () => {
       const uuid45 = generateUUID();
       // generate a timestamp in the format of - "yyyy-MM-dd'T'HH:mm:ss.SSSSSS ->
       const timestamp2 = getTimestamp()
-      const url2 = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/bafkreid2npzjcckmzxohbxy6hren7tnxytmycnnfufsosucndawzghcil4"
+      const url2 = "https://orange-acceptable-mouse-528.mypinata.cloud/ipfs/bafkreiapgcfzbdv7eqlxspl3ydzbs2f5t74f3tty6zkjrp2hlw25hvczdq"
 
       console.log("Free package, no need to send to stripeasdadasd123123");
       const data_to_send = { action: "new-item", body: { item: userAddress,url:url2 , uuid: uuid45,packageType : "ANONYMOUS", timestamp: timestamp2 } }
